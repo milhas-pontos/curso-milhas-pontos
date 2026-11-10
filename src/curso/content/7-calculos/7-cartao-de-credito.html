@@ -50,8 +50,18 @@
           <section class="section" id="calculadora">
             <div class="kicker">01 · Calculadora</div>
             <h2>Edite os valores</h2>
-            <p>Pontos é quantos pontos o cartão dá por cada dólar gasto. O dólar é a cotação usada nessa conta.</p>
+            <p>Pontos é quantos pontos o cartão dá por cada dólar gasto. O dólar é a cotação usada nessa conta. O Nubank Ultravioleta preenche 1,25% de cashback e 2,2 pontos por dólar. O Nubank Croma preenche 0,8% e 1,4. Sem cartão, informe esses campos.</p>
             <div class="calculator" data-calculator="credit-card">
+              <div class="calculator-fields cols-4">
+                <div class="calculator-field">
+                  <label for="cc-card">Cartão</label>
+                  <select class="calculator-input" id="cc-card" name="card">
+                    <option value="">Selecione</option>
+                    <option value="nubank-ultravioleta">Nubank Ultravioleta</option>
+                    <option value="nubank-croma">Nubank Croma</option>
+                  </select>
+                </div>
+              </div>
               <div class="calculator-fields cols-4">
                 <div class="calculator-field">
                   <label for="cc-purchase">Valor da compra (R$)</label>
@@ -70,10 +80,10 @@
                   <input class="calculator-input" id="cc-dollar" name="dollar" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
                 </div>
               </div>
-              <div class="calculator-results" aria-live="polite">
+              <div class="calculator-results card-results" aria-live="polite">
                 <div class="calculator-result"><span>Cashback</span><output data-output="cashback">—</output></div>
                 <div class="calculator-result"><span>Pontos</span><output data-output="points">—</output></div>
-                <div class="calculator-result"><span>Cashback x Milheiro</span><output data-output="cashback-per-thousand">—</output></div>
+                <div class="calculator-result"><span>Para conseguir 1.000 pontos, precisa gastar:</span><output data-output="spend-per-thousand">—</output></div>
               </div>
             </div>
           </section>
@@ -89,11 +99,11 @@
               <div class="equation">valor da compra ÷ dólar × pontos por dólar</div>
             </div>
             <div class="formula">
-              <div class="formula-label">Cashback x Milheiro</div>
-              <div class="equation">cashback × dólar × 10 ÷ pontos por dólar</div>
+              <div class="formula-label">Para conseguir 1.000 pontos</div>
+              <div class="equation">dólar × 1.000 ÷ pontos por dólar</div>
             </div>
             <p>Exemplo hipotético. Compra de R$ 4.000, cashback de 1,25% e 2,2 pontos por dólar, com o dólar a R$ 5,34. O cashback é 4.000 × 1,25 ÷ 100 = R$ 50. Os pontos são 4.000 ÷ 5,34 × 2,2 = 1.648, já arredondados.</p>
-            <p>Cashback x Milheiro é o cashback que você deixa de receber a cada 1.000 pontos. O valor da compra não entra: 1,25 × 5,34 × 10 ÷ 2,2 = R$ 30,34 por 1.000 pontos. Compare com o milheiro de referência do programa para onde os pontos vão.</p>
+            <p>Para conseguir 1.000 pontos, a compra precisa ter esse valor. O valor informado da compra não entra: 5,34 × 1.000 ÷ 2,2 = R$ 2.427,27.</p>
             <div class="callout">
               <div class="callout-icon">i</div>
               <div>

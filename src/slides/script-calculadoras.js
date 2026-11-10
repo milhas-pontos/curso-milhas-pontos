@@ -221,6 +221,21 @@
 		return readNumber(calculator.querySelector(`[name="${name}"]`));
 	}
 
+	var cardPresets = {
+		"nubank-ultravioleta": { cashback: "1,25", points: "2,2" },
+		"nubank-croma": { cashback: "0,8", points: "1,4" },
+	};
+
+	function applyCardPreset(calculator) {
+		var card = calculator.querySelector('[name="card"]');
+		var preset = card ? cardPresets[card.value] : null;
+		var cashback = calculator.querySelector('[name="cashback"]');
+		var points = calculator.querySelector('[name="points"]');
+		if (!preset) return;
+		if (cashback) cashback.value = preset.cashback;
+		if (points) points.value = preset.points;
+	}
+
 	function calculateCreditCard(calculator) {
 		var purchase = value(calculator, "purchase");
 		var cashbackRate = value(calculator, "cashback");
@@ -234,20 +249,12 @@
 			purchase >= 0 && pointsRate >= 0 && dollar > 0
 				? Math.round((purchase / dollar) * pointsRate)
 				: NaN;
-		var cashbackPerThousand =
-			cashbackRate >= 0 && pointsRate > 0 && dollar > 0
-				? (cashbackRate * dollar * 10) / pointsRate
-				: NaN;
+		var spendPerThousand =
+			pointsRate > 0 && dollar > 0 ? (dollar * 1000) / pointsRate : NaN;
 
 		setOutput(calculator, "cashback", formatMoney(cashback));
 		setOutput(calculator, "points", formatNumber(points, 0));
-		setOutput(
-			calculator,
-			"cashback-per-thousand",
-			Number.isFinite(cashbackPerThousand)
-				? `${formatMoney(cashbackPerThousand)} por 1.000 pontos`
-				: "—",
-		);
+		setOutput(calculator, "spend-per-thousand", formatMoney(spendPerThousand));
 	}
 
 	function calculatePurchase(calculator) {
@@ -805,6 +812,15 @@
 
 		function onEdit(event) {
 			var field = event.target;
+			var card;
+			if (field.name === "card") applyCardPreset(calculator);
+			else if (
+				(field.name === "cashback" || field.name === "points") &&
+				event.isTrusted
+			) {
+				card = calculator.querySelector('[name="card"]');
+				if (card) card.value = "";
+			}
 			if (field.classList?.contains("calculator-input") && field.dataset.mask) {
 				if (field.dataset.mask === "money") handleMoneyInput(field);
 				else applyMask(field);

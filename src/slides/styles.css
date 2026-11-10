@@ -998,6 +998,10 @@ body {
 	grid-template-columns: repeat(3, 1fr);
 }
 
+.calculator-field.is-full {
+	grid-column: 1 / -1;
+}
+
 .calculator-field label {
 	display: block;
 	font-size: 13px;
@@ -1126,8 +1130,13 @@ select.calculator-input {
 	grid-template-columns: 1fr;
 }
 
-.calculator-results.cols-2 {
+.calculator-results.cols-2,
+.calculator-results.card-results {
 	grid-template-columns: repeat(2, 1fr);
+}
+
+.calculator-results.card-results > .calculator-result:nth-child(3) {
+	grid-column: 1 / -1;
 }
 
 .calculator-results.accor-results {

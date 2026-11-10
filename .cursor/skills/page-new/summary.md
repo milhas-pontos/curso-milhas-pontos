@@ -85,4 +85,4 @@ Calculadoras editáveis para custo por milheiro, transferência com bônus, o va
 | 4 | Custo Por Milheiro - Transferência | Proporção e bônus, pontos recebidos e CPM antes e depois. |
 | 5 | Emissão de Passagem | Estimar a emissão em reais. O milheiro começa na referência do programa e pode ser alterado. Ida e volta são opcionais. |
 | 6 | ALL Accor | Custo de transformar milhas em crédito ALL. Ao escolher a LATAM Pass, entram o milheiro de referência e 6.000 milhas para 1.000 Pontos Reward. A lupa busca a PTAX de venda do euro. Bônus da promoção só entra quando preenchido. |
-| 7 | Cartão de Crédito | Cashback da compra e pontos por dólar gasto. O exemplo hipotético de R$ 4.000, 1,25% e 2,2 pontos por dólar a R$ 5,34 dá R$ 50 e 1.648 pontos. Cashback x Milheiro não usa o valor da compra: R$ 30,34 por 1.000 pontos. |
+| 7 | Cartão de Crédito | Cashback da compra e pontos por dólar gasto. O Nubank Ultravioleta preenche 1,25% e 2,2 pontos por dólar. O Nubank Croma preenche 0,8% e 1,4. O exemplo hipotético de R$ 4.000, com o dólar a R$ 5,34, dá R$ 50 e 1.648 pontos. Para conseguir 1.000 pontos, a compra precisa ser de R$ 2.427,27. |
