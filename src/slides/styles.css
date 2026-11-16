@@ -998,6 +998,10 @@ body {
 	grid-template-columns: repeat(3, 1fr);
 }
 
+.calculator-field.span-2 {
+	grid-column: span 2;
+}
+
 .calculator-field.is-full {
 	grid-column: 1 / -1;
 }
@@ -1135,9 +1139,6 @@ select.calculator-input {
 	grid-template-columns: repeat(2, 1fr);
 }
 
-.calculator-results.card-results > .calculator-result:nth-child(3) {
-	grid-column: 1 / -1;
-}
 
 .calculator-results.accor-results {
 	grid-template-columns: repeat(6, minmax(0, 1fr));

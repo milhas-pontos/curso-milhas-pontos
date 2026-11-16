@@ -306,29 +306,38 @@
     </div>
     <div class="title-section">
       <h1>Cartão de Crédito</h1>
-      <p>O Nubank Ultravioleta preenche 1,25% de cashback e 2,2 pontos por dólar. O Nubank Croma preenche 0,8% e 1,4. Sem cartão, informe esses campos.</p>
+      <p>A lupa busca a PTAX de venda do dólar. O Nubank Ultravioleta preenche 1,25% de cashback e 2,2 pontos por dólar. O Nubank Croma preenche 0,8% e 1,4. Sem cartão, informe esses campos.</p>
     </div>
   </div>
   <div class="slide-body">
     <div class="calculator" data-calculator="credit-card">
       <div class="calculator-fields">
-        <div class="calculator-field"><label for="s6-card">Cartão</label><select class="calculator-input" id="s6-card" name="card"><option value="">Selecione</option><option value="nubank-ultravioleta">Nubank Ultravioleta</option><option value="nubank-croma">Nubank Croma</option></select></div>
+        <div class="calculator-field span-2"><label for="s6-card">Cartão</label><select class="calculator-input" id="s6-card" name="card"><option value="">Selecione</option><option value="nubank-ultravioleta">Nubank Ultravioleta</option><option value="nubank-croma">Nubank Croma</option></select></div>
       </div>
       <div class="calculator-fields">
         <div class="calculator-field"><label for="s6-purchase">Valor da compra (R$)</label><input class="calculator-input" id="s6-purchase" name="purchase" type="text" inputmode="decimal" data-mask="money" autocomplete="off"></div>
         <div class="calculator-field"><label for="s6-cashback">Cashback (%)</label><input class="calculator-input" id="s6-cashback" name="cashback" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off"></div>
         <div class="calculator-field"><label for="s6-points">Pontos</label><input class="calculator-input" id="s6-points" name="points" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off"></div>
-        <div class="calculator-field"><label for="s6-dollar">Dólar (R$)</label><input class="calculator-input" id="s6-dollar" name="dollar" type="text" inputmode="decimal" data-mask="money" autocomplete="off"></div>
+        <div class="calculator-field"><label for="s6-dollar">Dólar (R$)</label>
+          <div class="fx-lookup">
+            <input class="calculator-input" id="s6-dollar" name="dollar" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+            <button type="button" class="fx-lookup-button" data-fx-lookup data-fx-currency="USD" aria-label="Buscar cotação do dólar">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <p class="field-note fx-quote is-blank" data-fx-note></p>
+        </div>
       </div>
       <div class="calculator-results card-results" aria-live="polite">
         <div class="calculator-result"><span>Cashback</span><output data-output="cashback">—</output></div>
         <div class="calculator-result"><span>Pontos</span><output data-output="points">—</output></div>
         <div class="calculator-result"><span>Para conseguir 1.000 pontos, precisa gastar:</span><output data-output="spend-per-thousand">—</output></div>
+        <div class="calculator-result"><span>Cashback recebido para os 1.000 pontos conseguidos</span><output data-output="cashback-on-thousand">—</output></div>
       </div>
     </div>
     <div class="formula-box">
       <div class="formula-label">Fórmula</div>
-      <div class="equation">para conseguir 1.000 pontos = dólar × 1.000 ÷ pontos por dólar</div>
+      <div class="equation">para conseguir 1.000 pontos = dólar × 1.000 ÷ pontos por dólar. Cashback recebido para os 1.000 pontos conseguidos = esse gasto × cashback ÷ 100.</div>
     </div>
   </div>
   <div class="alert-box info">

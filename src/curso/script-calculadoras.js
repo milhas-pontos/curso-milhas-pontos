@@ -251,10 +251,15 @@
 				: NaN;
 		var spendPerThousand =
 			pointsRate > 0 && dollar > 0 ? (dollar * 1000) / pointsRate : NaN;
+		var cashbackOnThousand =
+			Number.isFinite(spendPerThousand) && cashbackRate >= 0
+				? (spendPerThousand * cashbackRate) / 100
+				: NaN;
 
 		setOutput(calculator, "cashback", formatMoney(cashback));
 		setOutput(calculator, "points", formatNumber(points, 0));
 		setOutput(calculator, "spend-per-thousand", formatMoney(spendPerThousand));
+		setOutput(calculator, "cashback-on-thousand", formatMoney(cashbackOnThousand));
 	}
 
 	function calculatePurchase(calculator) {
@@ -709,14 +714,14 @@
 		setNegative(calculator, "gap-pct", result.gapPct < 0);
 	}
 
-	function euroPtaxUrl(date) {
+	function ptaxUrl(currency, date) {
 		var month = String(date.getMonth() + 1).padStart(2, "0");
 		var day = String(date.getDate()).padStart(2, "0");
 		var stamp = `${month}-${day}-${date.getFullYear()}`;
 		return (
 			"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/" +
 			"CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)" +
-			`?@moeda='EUR'&@dataCotacao='${stamp}'&$top=100&$format=json` +
+			`?@moeda='${currency}'&@dataCotacao='${stamp}'&$top=100&$format=json` +
 			"&$select=cotacaoVenda,dataHoraCotacao"
 		);
 	}
@@ -727,13 +732,13 @@
 		return `${parts[2]}/${parts[1]}/${parts[0]} ${parts[3]}:${parts[4]}h`;
 	}
 
-	function readEuroPtax(offset) {
+	function readPtax(currency, offset) {
 		var date;
 		if (offset > 6) return Promise.resolve(null);
 		date = new Date();
 		date.setHours(12, 0, 0, 0);
 		date.setDate(date.getDate() - offset);
-		return fetch(euroPtaxUrl(date))
+		return fetch(ptaxUrl(currency, date))
 			.then((response) => {
 				if (!response.ok) throw new Error("ptax");
 				return response.json();
@@ -751,37 +756,38 @@
 						latest = row;
 					}
 				});
-				if (!latest) return readEuroPtax(offset + 1);
+				if (!latest) return readPtax(currency, offset + 1);
 				return {
 					rate: Number(latest.cotacaoVenda),
 					label: formatPtaxWhen(latest.dataHoraCotacao),
 				};
 			})
-			.catch(() => readEuroPtax(offset + 1));
+			.catch(() => readPtax(currency, offset + 1));
 	}
 
-	function bindEuroLookup() {
+	function bindFxLookup() {
 		document.querySelectorAll("[data-fx-lookup]").forEach((button) => {
 			button.addEventListener("click", () => {
 				var calculator = button.closest("[data-calculator]");
-				var field;
-				var note;
+				var lookup = button.closest(".fx-lookup");
+				var fieldWrap = button.closest(".calculator-field");
+				var field = lookup ? lookup.querySelector("input") : null;
+				var note = fieldWrap
+					? fieldWrap.querySelector("[data-fx-note]")
+					: null;
+				var currency = button.dataset.fxCurrency === "USD" ? "USD" : "EUR";
 				var formatted;
-				if (!calculator || button.disabled) return;
+				if (!calculator || !field || button.disabled) return;
 				button.disabled = true;
-				readEuroPtax(0)
+				readPtax(currency, 0)
 					.then((quote) => {
 						if (!quote) return;
-						field = calculator.querySelector('[name="fx"]');
-						note = calculator.querySelector("[data-fx-note]");
-						if (field) {
-							formatted = formatMoneyInput(
-								String(Math.round(quote.rate * 100)),
-							);
-							field.value = formatted;
-							field.dataset.moneyValue = formatted;
-							field.dispatchEvent(new Event("input", { bubbles: true }));
-						}
+						formatted = formatMoneyInput(
+							String(Math.round(quote.rate * 100)),
+						);
+						field.value = formatted;
+						field.dataset.moneyValue = formatted;
+						field.dispatchEvent(new Event("input", { bubbles: true }));
 						if (note) {
 							note.textContent = `${quote.label} - ${formatMoney(quote.rate)}`;
 							note.classList.remove("is-blank");
@@ -840,5 +846,5 @@
 		calculator.addEventListener("change", onEdit);
 		calculate(calculator);
 	});
-	bindEuroLookup();
+	bindFxLookup();
 })();
