@@ -12,8 +12,8 @@
     <h2>Aulas</h2>
     <div class="lesson-item"><div class="icon icon-4">1</div>Como Calcular o CPM</div>
     <div class="lesson-item"><div class="icon icon-4">2</div>Valores de Referência do Milheiro</div>
-    <div class="lesson-item"><div class="icon icon-4">3</div>Custo Por Milheiro</div>
-    <div class="lesson-item"><div class="icon icon-4">4</div>Custo Por Milheiro - Transferência</div>
+    <div class="lesson-item"><div class="icon icon-4">3</div>Custo por Milheiro (CPM)</div>
+    <div class="lesson-item"><div class="icon icon-4">4</div>Transferência no Carrinho</div>
     <div class="lesson-item"><div class="icon icon-4">5</div>Emissão de Passagem</div>
     <div class="lesson-item"><div class="icon icon-4">6</div>ALL Accor</div>
     <div class="lesson-item"><div class="icon icon-4">7</div>Cartão de Crédito</div>
@@ -96,7 +96,7 @@
       <span class="slide-num"></span>
     </div>
     <div class="title-section">
-      <h1>Custo Por Milheiro</h1>
+      <h1>Custo por Milheiro (CPM)</h1>
       <p>Descubra quanto você pagou por cada 1.000 pontos. Digite os valores.</p>
     </div>
   </div>
@@ -104,8 +104,8 @@
     <div class="calculator" data-calculator="purchase">
       <div class="split">
         <div class="calculator-fields cols-2">
-          <div class="calculator-field"><label for="s1-points">Pontos comprados</label><input class="calculator-input" id="s1-points" name="points" type="text" inputmode="numeric" data-mask="integer"></div>
-          <div class="calculator-field"><label for="s1-paid">Valor pago (R$)</label><input class="calculator-input" id="s1-paid" name="paid" type="text" inputmode="decimal" data-mask="money"></div>
+          <div class="calculator-field"><label for="s1-points">Pontos</label><input class="calculator-input" id="s1-points" name="points" type="text" inputmode="numeric" data-mask="integer"></div>
+          <div class="calculator-field"><label for="s1-paid">Valor pago</label><input class="calculator-input" id="s1-paid" name="paid" type="text" inputmode="decimal" data-mask="money"></div>
         </div>
         <div class="calculator-results cols-1" aria-live="polite">
           <div class="calculator-result"><span>Custo por milheiro</span><output data-output="cpm">—</output></div>
@@ -126,40 +126,44 @@
       <span class="slide-num"></span>
     </div>
     <div class="title-section">
-      <h1>Custo Por Milheiro - Transferência</h1>
-      <p>Veja quantos pontos chegam e quanto cada milheiro passa a custar. Proporção primeiro, bônus depois.</p>
+      <h1>Transferência no Carrinho</h1>
+      <p>Some os pontos que você já tem com os que compra agora. O bônus incide sobre essa soma, na proporção de 1 para 1.</p>
     </div>
   </div>
   <div class="slide-body" style="gap:14px">
     <div class="calculator" data-calculator="transfer">
-      <div class="calculator-fields">
-        <div class="calculator-field"><label for="s2-points">Pontos para transferir</label><input class="calculator-input" id="s2-points" name="points" type="text" inputmode="numeric" data-mask="integer"></div>
+      <div class="calculator-fields cols-3">
+        <div class="calculator-field"><label for="s2-owned">Pontos Livelo/Esfera</label><input class="calculator-input" id="s2-owned" name="owned" type="text" inputmode="numeric" data-mask="integer"></div>
+        <div class="calculator-field"><label for="s2-rate">Valor do milheiro</label><input class="calculator-input" id="s2-rate" name="rate" type="text" inputmode="decimal" data-mask="money"></div>
+        <div class="calculator-field"><label for="s2-total">Valor total</label><input class="calculator-input" id="s2-total" name="total" type="text" data-mask="money" disabled></div>
+      </div>
+      <div class="calculator-fields cols-3">
+        <div class="calculator-field"><label for="s2-buy">Pontos a comprar</label><input class="calculator-input" id="s2-buy" name="buy" type="text" inputmode="numeric" data-mask="integer"></div>
         <div class="calculator-field"><label for="s2-paid">Valor pago (R$)</label><input class="calculator-input" id="s2-paid" name="paid" type="text" inputmode="decimal" data-mask="money"></div>
-        <div class="calculator-field"><label for="s2-bonus">Bônus de transferência (%)</label><input class="calculator-input" id="s2-bonus" name="bonus" type="text" inputmode="decimal" data-mask="decimal"></div>
-        <div class="calculator-field"><label for="s2-ratio">Pontos necessários para 1 milha</label><input class="calculator-input" id="s2-ratio" name="ratio" type="text" inputmode="decimal" data-mask="decimal"></div>
+        <div class="calculator-field"><label for="s2-bonus">Bônus de transferência (%)</label><div class="pct-input"><input class="calculator-input" id="s2-bonus" name="bonus" type="text" inputmode="decimal" data-mask="decimal"><span class="pct-suffix" aria-hidden="true">%</span></div></div>
       </div>
       <div class="calculator-results cols-3" aria-live="polite">
-        <div class="calculator-result"><span>Pontos recebidos</span><output data-output="received">—</output></div>
-        <div class="calculator-result"><span>CPM antes da transferência</span><output data-output="purchase-cpm">—</output></div>
-        <div class="calculator-result"><span>CPM pós-transferência</span><output data-output="transfer-cpm">—</output></div>
+        <div class="calculator-result"><span>Pontos no total</span><output data-output="total-points">—</output></div>
+        <div class="calculator-result"><span>Pontos recebidos com bônus</span><output data-output="received">—</output></div>
+        <div class="calculator-result"><span>CPM final</span><output data-output="final-cpm">—</output></div>
       </div>
     </div>
     <div class="formula-row">
       <div class="formula-box">
-        <div class="formula-label">Pontos recebidos</div>
-        <div class="equation">(pontos ÷ pontos para 1 milha) × (1 + bônus ÷ 100)</div>
+        <div class="formula-label">Pontos recebidos com bônus</div>
+        <div class="equation">pontos no total × (1 + bônus ÷ 100)</div>
       </div>
       <div class="formula-box">
-        <div class="formula-label">CPM pós-transferência</div>
-        <div class="equation">(valor pago ÷ pontos recebidos) × 1.000</div>
+        <div class="formula-label">CPM final</div>
+        <div class="equation">((valor total + valor pago) ÷ pontos recebidos) × 1.000</div>
       </div>
     </div>
   </div>
   <div class="alert-box info">
     <div class="alert-icon">i</div>
     <div class="alert-content">
-      <h4>Proporção</h4>
-      <p>Se 1 ponto vira 1 milha, use 1. Se 2 pontos viram 1 milha, use 2: 100.000 viram 50.000 antes do bônus. Ex.: R$ 1.500 por 200.000 recebidos = R$ 7,50.</p>
+      <h4>Exemplo hipotético</h4>
+      <p>100.000 pontos a R$ 15 o milheiro, sem compra extra e com bônus de 100%. O total é R$ 1.500 e chegam 200.000 pontos: R$ 7,50 o milheiro.</p>
     </div>
   </div>
 </section>
@@ -267,7 +271,7 @@
         <div class="calculator-field"><label for="s5-ratio">Milhas para 1.000 Reward</label><input class="calculator-input" id="s5-ratio" name="ratio" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
           <p class="field-note is-blank" data-ratio-note>Referência: <strong data-output="ratio-reference">—</strong></p>
         </div>
-        <div class="calculator-field"><label for="s5-promo-bonus">Bônus da promoção (%)</label><input class="calculator-input" id="s5-promo-bonus" name="promo-bonus" type="text" inputmode="decimal" data-mask="decimal" value="0" autocomplete="off"></div>
+        <div class="calculator-field"><label for="s5-promo-bonus">Bônus da promoção (%)</label><div class="pct-input"><input class="calculator-input" id="s5-promo-bonus" name="promo-bonus" type="text" inputmode="decimal" data-mask="decimal" value="0" autocomplete="off"><span class="pct-suffix" aria-hidden="true">%</span></div></div>
         <div class="calculator-field"><label for="s5-euro">Euros por 1.000 Reward</label><input class="calculator-input" id="s5-euro" name="euro-block" type="text" inputmode="decimal" data-mask="decimal" value="20" autocomplete="off"></div>
         <div class="calculator-field"><label for="s5-fx">Câmbio do euro (R$)</label>
           <div class="fx-lookup">
@@ -316,7 +320,7 @@
       </div>
       <div class="calculator-fields">
         <div class="calculator-field"><label for="s6-purchase">Valor da compra (R$)</label><input class="calculator-input" id="s6-purchase" name="purchase" type="text" inputmode="decimal" data-mask="money" autocomplete="off"></div>
-        <div class="calculator-field"><label for="s6-cashback">Cashback (%)</label><input class="calculator-input" id="s6-cashback" name="cashback" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off"></div>
+        <div class="calculator-field"><label for="s6-cashback">Cashback (%)</label><div class="pct-input"><input class="calculator-input" id="s6-cashback" name="cashback" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off"><span class="pct-suffix" aria-hidden="true">%</span></div></div>
         <div class="calculator-field"><label for="s6-points">Pontos</label><input class="calculator-input" id="s6-points" name="points" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off"></div>
         <div class="calculator-field"><label for="s6-dollar">Dólar (R$)</label>
           <div class="fx-lookup">

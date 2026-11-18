@@ -5,9 +5,13 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff">
-  <title>Custo Por Milheiro - Transferência — Milhas &amp; Pontos</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="../../styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Transferência no Carrinho — Milhas &amp; Pontos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles.css">
 </head>
 <body data-lesson="m7-a4" data-root="../../">
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -15,55 +19,43 @@
   <div class="layout">
     <aside class="course-nav" aria-label="Módulos e aulas"><div class="course-nav-label"><a href="../../index.html">Aulas</a></div><nav id="curriculum" aria-label="Módulos do curso"></nav><footer class="course-progress"><div class="progress-label"><span>Progresso</span><span id="progress-count">0 / 0</span></div><div class="progress-bar" id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progress-fill"></div></div><div class="progress-pct" id="progress-pct">0% concluído</div></footer></aside>
     <main id="conteudo"><article class="lesson">
-      <header class="hero"><div class="eyebrow">Módulo 7 · Cálculos</div><h1>Custo Por Milheiro - Transferência</h1><p class="lead">Veja quantos pontos chegam e quanto cada milheiro passa a custar.</p><div class="meta"><span class="pill">Módulo 7 - Aula 4</span></div></header>
+      <header class="hero"><div class="eyebrow">Módulo 7 · Cálculos</div><h1>Transferência no Carrinho</h1><p class="lead">Some os pontos que você já tem com os que compra agora. O bônus incide sobre essa soma.</p><div class="meta"><span class="pill">Módulo 7 - Aula 4</span></div></header>
       <div class="body">
         <section class="section">
           <div class="kicker">01 · Calculadora</div>
           <h2>Edite os valores</h2>
+          <p>O Valor total multiplica os pontos da Livelo ou da Esfera pelo valor do milheiro. Esse campo não é digitado.</p>
           <div class="calculator" data-calculator="transfer">
-            <div class="calculator-fields">
-              <div class="calculator-field"><label for="points">Pontos para transferir</label><input class="calculator-input" id="points" name="points" type="text" inputmode="numeric" data-mask="integer"></div>
-              <div class="calculator-field"><label for="paid">Valor pago (R$)</label><input class="calculator-input" id="paid" name="paid" type="text" inputmode="decimal" data-mask="money"></div>
-              <div class="calculator-field"><label for="bonus">Bônus de transferência (%)</label><input class="calculator-input" id="bonus" name="bonus" type="text" inputmode="decimal" data-mask="decimal"></div>
-              <div class="calculator-field"><label for="ratio">Pontos necessários para 1 milha</label><input class="calculator-input" id="ratio" name="ratio" type="text" inputmode="decimal" data-mask="decimal"></div>
+            <div class="calculator-fields cols-3">
+              <div class="calculator-field"><label for="owned">Pontos Livelo/Esfera</label><input class="calculator-input" id="owned" name="owned" type="text" inputmode="numeric" data-mask="integer" autocomplete="off"></div>
+              <div class="calculator-field"><label for="rate">Valor do milheiro</label><input class="calculator-input" id="rate" name="rate" type="text" inputmode="decimal" data-mask="money" autocomplete="off"></div>
+              <div class="calculator-field"><label for="total">Valor total</label><input class="calculator-input" id="total" name="total" type="text" data-mask="money" disabled autocomplete="off"></div>
+            </div>
+            <div class="calculator-fields cols-3">
+              <div class="calculator-field"><label for="buy">Pontos a comprar</label><input class="calculator-input" id="buy" name="buy" type="text" inputmode="numeric" data-mask="integer" autocomplete="off"></div>
+              <div class="calculator-field"><label for="paid">Valor pago (R$)</label><input class="calculator-input" id="paid" name="paid" type="text" inputmode="decimal" data-mask="money" autocomplete="off"></div>
+              <div class="calculator-field"><label for="bonus">Bônus de transferência (%)</label><div class="pct-input"><input class="calculator-input" id="bonus" name="bonus" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off"><span class="pct-suffix" aria-hidden="true">%</span></div></div>
             </div>
             <div class="calculator-results" aria-live="polite">
-              <div class="calculator-result"><span>Pontos recebidos</span><output data-output="received">—</output></div>
-              <div class="calculator-result"><span>CPM antes da transferência</span><output data-output="purchase-cpm">—</output></div>
-              <div class="calculator-result"><span>CPM pós-transferência</span><output data-output="transfer-cpm">—</output></div>
+              <div class="calculator-result"><span>Pontos no total</span><output data-output="total-points">—</output></div>
+              <div class="calculator-result"><span>Pontos recebidos com bônus</span><output data-output="received">—</output></div>
+              <div class="calculator-result"><span>CPM final</span><output data-output="final-cpm">—</output></div>
             </div>
           </div>
         </section>
         <section class="section">
-          <div class="kicker">02 · Pontos recebidos</div>
-          <h2>Proporção primeiro, bônus depois</h2>
-          <p>Divida os pontos que você vai enviar. O bônus entra em cima desse resultado, não em cima do saldo original.</p>
+          <div class="kicker">02 · Conta</div>
+          <h2>O bônus entra na soma</h2>
+          <p>Pontos no total somam os pontos que você já tem e os pontos a comprar. A conta usa proporção de 1 para 1, antes do bônus. Confira no regulamento se a promoção aceita a compra no mesmo carrinho.</p>
           <div class="formula">
-            <div class="formula-label">Pontos da proporção</div>
-            <div class="equation">pontos para transferir ÷ pontos necessários para 1 milha</div>
+            <div class="formula-label">Pontos recebidos com bônus</div>
+            <div class="equation">pontos no total × (1 + bônus ÷ 100)</div>
           </div>
           <div class="formula">
-            <div class="formula-label">Pontos recebidos</div>
-            <div class="equation">pontos da proporção + (pontos da proporção × bônus ÷ 100)</div>
+            <div class="formula-label">CPM final</div>
+            <div class="equation">((valor total + valor pago) ÷ pontos recebidos) × 1.000</div>
           </div>
-          <p>Bônus de 100% soma a mesma quantidade outra vez. Com 100.000 pontos e 1 ponto para cada milha, a proporção entrega 100.000 e chegam 200.000.</p>
-          <div class="callout">
-            <div class="callout-icon">i</div>
-            <div>
-              <strong>Proporção</strong>
-              <p>Se 1 ponto vira 1 milha, use 1. Se 2 pontos viram 1 milha, use 2. Nesse caso, 100.000 viram 50.000 antes do bônus.</p>
-            </div>
-          </div>
-        </section>
-        <section class="section">
-          <div class="kicker">03 · CPM pós-transferência</div>
-          <h2>Divida o valor pago pelos pontos recebidos</h2>
-          <p>Este CPM usa os pontos recebidos da conta anterior. O valor pago continua o mesmo.</p>
-          <div class="formula">
-            <div class="formula-label">CPM pós-transferência</div>
-            <div class="equation">(valor pago ÷ pontos recebidos) × 1.000</div>
-          </div>
-          <p>No exemplo, R$ 1.500 por 200.000 pontos dão (1.500 ÷ 200.000) × 1.000 = R$ 7,50 o milheiro. O CPM antes, na calculadora, divide o mesmo valor pelos pontos que você envia, ainda sem proporção e sem bônus.</p>
+          <p>Exemplo hipotético: 100.000 pontos a R$ 15 o milheiro, sem compra extra e com bônus de 100%. O total é R$ 1.500 e chegam 200.000 pontos. (1.500 ÷ 200.000) × 1.000 = R$ 7,50 o milheiro.</p>
         </section>
       </div>
       <div class="lesson-actions"><button type="button" class="btn" id="btn-toggle-complete">Marcar como concluída</button></div><footer class="footer"><nav class="actions" id="lesson-pager" aria-label="Navegação entre aulas"></nav></footer>

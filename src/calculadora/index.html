@@ -29,8 +29,8 @@
     <aside class="calc-nav" aria-label="Calculadoras">
       <div class="calc-nav-label">Calculadoras</div>
       <nav>
-        <a href="/calculadora/#custo-por-milheiro">Custo por Milheiro</a>
-        <a href="/calculadora/#pos-transferencia">Custo por Milheiro - Transferência</a>
+        <a href="/calculadora/#custo-por-milheiro">Custo por Milheiro (CPM)</a>
+        <a href="/calculadora/#pos-transferencia">Transferência no Carrinho</a>
         <a href="/calculadora/#emissao-de-passagem">Emissão de Passagem</a>
         <a href="/calculadora/#credito-all-accor">ALL Accor</a>
         <a href="/calculadora/#cartao-de-credito">Cartão de Crédito</a>
@@ -47,16 +47,16 @@
         <div class="body">
           <section class="section" id="custo-por-milheiro">
             <div class="kicker">01 · Calculadora</div>
-            <h2>Custo por Milheiro</h2>
+            <h2>Custo por Milheiro (CPM)</h2>
             <p>Descubra quanto você pagou por cada 1.000 pontos.</p>
             <div class="calculator" data-calculator="purchase">
               <div class="calculator-fields">
                 <div class="calculator-field">
-                  <label for="cpm-points">Pontos comprados</label>
+                  <label for="cpm-points">Pontos</label>
                   <input class="calculator-input" id="cpm-points" name="points" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
                 </div>
                 <div class="calculator-field">
-                  <label for="cpm-paid">Valor pago (R$)</label>
+                  <label for="cpm-paid">Valor pago</label>
                   <input class="calculator-input" id="cpm-paid" name="paid" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
                 </div>
               </div>
@@ -71,13 +71,27 @@
 
           <section class="section" id="pos-transferencia">
             <div class="kicker">02 · Calculadora</div>
-            <h2>Custo por Milheiro - Transferência</h2>
-            <p>Veja quantos pontos chegam e quanto cada milheiro passa a custar.</p>
+            <h2>Transferência no Carrinho</h2>
+            <p>Some os pontos que você já tem com os que vai comprar. O bônus incide sobre essa soma, na proporção de 1 para 1.</p>
             <div class="calculator" data-calculator="transfer">
-              <div class="calculator-fields">
+              <div class="calculator-fields cols-3">
                 <div class="calculator-field">
-                  <label for="transfer-points">Pontos para transferir</label>
-                  <input class="calculator-input" id="transfer-points" name="points" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
+                  <label for="transfer-owned">Pontos Livelo/Esfera</label>
+                  <input class="calculator-input" id="transfer-owned" name="owned" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
+                </div>
+                <div class="calculator-field">
+                  <label for="transfer-rate">Valor do milheiro</label>
+                  <input class="calculator-input" id="transfer-rate" name="rate" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                </div>
+                <div class="calculator-field">
+                  <label for="transfer-total">Valor total</label>
+                  <input class="calculator-input" id="transfer-total" name="total" type="text" data-mask="money" disabled autocomplete="off">
+                </div>
+              </div>
+              <div class="calculator-fields cols-3">
+                <div class="calculator-field">
+                  <label for="transfer-buy">Pontos a comprar</label>
+                  <input class="calculator-input" id="transfer-buy" name="buy" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
                 </div>
                 <div class="calculator-field">
                   <label for="transfer-paid">Valor pago (R$)</label>
@@ -85,25 +99,24 @@
                 </div>
                 <div class="calculator-field">
                   <label for="transfer-bonus">Bônus de transferência (%)</label>
-                  <input class="calculator-input" id="transfer-bonus" name="bonus" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off">
-                </div>
-                <div class="calculator-field">
-                  <label for="transfer-ratio">Pontos necessários para 1 milha</label>
-                  <input class="calculator-input" id="transfer-ratio" name="ratio" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off">
+                  <div class="pct-input">
+                    <input class="calculator-input" id="transfer-bonus" name="bonus" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off">
+                    <span class="pct-suffix" aria-hidden="true">%</span>
+                  </div>
                 </div>
               </div>
               <div class="calculator-results" aria-live="polite">
                 <div class="calculator-result">
-                  <span>Pontos recebidos</span>
+                  <span>Pontos no total</span>
+                  <output data-output="total-points">—</output>
+                </div>
+                <div class="calculator-result">
+                  <span>Pontos recebidos com bônus</span>
                   <output data-output="received">—</output>
                 </div>
                 <div class="calculator-result">
-                  <span>CPM antes da transferência</span>
-                  <output data-output="purchase-cpm">—</output>
-                </div>
-                <div class="calculator-result">
-                  <span>CPM pós-transferência</span>
-                  <output data-output="transfer-cpm">—</output>
+                  <span>CPM final</span>
+                  <output data-output="final-cpm">—</output>
                 </div>
               </div>
             </div>
@@ -287,7 +300,10 @@
                 </div>
                 <div class="calculator-field">
                   <label for="c-accor-promo-bonus">Bônus da promoção (%)</label>
-                  <input class="calculator-input" id="c-accor-promo-bonus" name="promo-bonus" type="text" inputmode="decimal" data-mask="decimal" value="0" autocomplete="off">
+                  <div class="pct-input">
+                    <input class="calculator-input" id="c-accor-promo-bonus" name="promo-bonus" type="text" inputmode="decimal" data-mask="decimal" value="0" autocomplete="off">
+                    <span class="pct-suffix" aria-hidden="true">%</span>
+                  </div>
                 </div>
                 <div class="calculator-field">
                   <label for="c-accor-euro">Euros por 1.000 Reward</label>
@@ -344,7 +360,10 @@
                 </div>
                 <div class="calculator-field">
                   <label for="card-cashback">Cashback (%)</label>
-                  <input class="calculator-input" id="card-cashback" name="cashback" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off">
+                  <div class="pct-input">
+                    <input class="calculator-input" id="card-cashback" name="cashback" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off">
+                    <span class="pct-suffix" aria-hidden="true">%</span>
+                  </div>
                 </div>
                 <div class="calculator-field">
                   <label for="card-points">Pontos</label>

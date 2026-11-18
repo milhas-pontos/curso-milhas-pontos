@@ -138,7 +138,7 @@
 
 	function showLoadError() {
 		var message =
-			"Não foi possível carregar o menu. Rode yarn start na raiz do projeto e abra http://localhost:3000/curso/.";
+			"Não foi possível carregar o menu. Rode pnpm start na raiz do projeto e abra http://localhost:3000/curso/.";
 		["curriculum", "module-index"].forEach((id) => {
 			var target = document.getElementById(id);
 			if (target) target.replaceChildren(el("p", "muted", message));

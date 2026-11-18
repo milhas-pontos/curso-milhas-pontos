@@ -76,7 +76,10 @@
                 </div>
                 <div class="calculator-field">
                   <label for="accor-promo-bonus">Bônus da promoção (%)</label>
-                  <input class="calculator-input" id="accor-promo-bonus" name="promo-bonus" type="text" inputmode="decimal" data-mask="decimal" value="0" autocomplete="off">
+                  <div class="pct-input">
+                    <input class="calculator-input" id="accor-promo-bonus" name="promo-bonus" type="text" inputmode="decimal" data-mask="decimal" value="0" autocomplete="off">
+                    <span class="pct-suffix" aria-hidden="true">%</span>
+                  </div>
                 </div>
                 <div class="calculator-field">
                   <label for="accor-euro">Euros por 1.000 Reward</label>

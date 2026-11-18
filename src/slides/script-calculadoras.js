@@ -269,23 +269,72 @@
 		setOutput(calculator, "cpm", formatMoney(cpm));
 	}
 
+	function filledAmount(field) {
+		var amount;
+		if (!field || !field.value.trim()) return null;
+		amount = readNumber(field);
+		return Number.isFinite(amount) ? amount : null;
+	}
+
 	function calculateTransfer(calculator) {
-		var points = value(calculator, "points");
-		var paid = value(calculator, "paid");
-		var bonus = value(calculator, "bonus");
-		var ratio = value(calculator, "ratio");
-
+		var owned = filledAmount(calculator.querySelector('[name="owned"]'));
+		var rate = filledAmount(calculator.querySelector('[name="rate"]'));
+		var buy = filledAmount(calculator.querySelector('[name="buy"]'));
+		var paid = filledAmount(calculator.querySelector('[name="paid"]'));
+		var bonus = filledAmount(calculator.querySelector('[name="bonus"]'));
+		var totalField = calculator.querySelector('[name="total"]');
+		var ownedPoints = owned == null ? 0 : owned;
+		var buyPoints = buy == null ? 0 : buy;
+		var bonusRate = bonus == null ? 0 : bonus;
+		var ownedCost =
+			owned != null && rate != null && owned >= 0 && rate >= 0
+				? (owned / 1000) * rate
+				: null;
+		var totalPoints =
+			(owned != null || buy != null) && ownedPoints >= 0 && buyPoints >= 0
+				? ownedPoints + buyPoints
+				: null;
 		var received =
-			points > 0 && ratio > 0 && bonus >= 0
-				? (points / ratio) * (1 + bonus / 100)
-				: NaN;
-		var purchaseCpm = points > 0 && paid >= 0 ? (paid / points) * 1000 : NaN;
-		var transferCpm =
-			received > 0 && paid >= 0 ? (paid / received) * 1000 : NaN;
+			totalPoints != null && totalPoints >= 0 && bonusRate >= 0
+				? totalPoints * (1 + bonusRate / 100)
+				: null;
+		var cost = 0;
+		var costKnown = totalPoints != null && totalPoints > 0;
+		var finalCpm;
+		var formatted;
 
-		setOutput(calculator, "received", formatNumber(received, 0));
-		setOutput(calculator, "purchase-cpm", formatMoney(purchaseCpm));
-		setOutput(calculator, "transfer-cpm", formatMoney(transferCpm));
+		if (ownedPoints > 0) {
+			if (ownedCost == null) costKnown = false;
+			else cost += ownedCost;
+		}
+		if (buyPoints > 0) {
+			if (paid == null || paid < 0) costKnown = false;
+			else cost += paid;
+		}
+		finalCpm = costKnown && received > 0 ? (cost / received) * 1000 : NaN;
+
+		if (totalField) {
+			if (ownedCost == null) {
+				totalField.value = "";
+				totalField.dataset.moneyValue = "";
+			} else {
+				formatted = formatMoneyInput(String(Math.round(ownedCost * 100)));
+				totalField.value = formatted;
+				totalField.dataset.moneyValue = formatted;
+			}
+		}
+
+		setOutput(
+			calculator,
+			"total-points",
+			totalPoints == null ? "—" : formatNumber(totalPoints, 0),
+		);
+		setOutput(
+			calculator,
+			"received",
+			received == null ? "—" : formatNumber(received, 0),
+		);
+		setOutput(calculator, "final-cpm", formatMoney(finalCpm));
 	}
 
 	function calculateEmission(calculator) {
@@ -799,6 +848,29 @@
 			});
 		});
 	}
+
+	function addMoneyPrefix(input) {
+		var parent = input.parentElement;
+		var wrap = parent;
+		var mark = document.createElement("span");
+		if (!parent || parent.querySelector(":scope > .money-prefix")) return;
+		if (!parent.classList.contains("fx-lookup")) {
+			wrap = document.createElement("div");
+			wrap.className = "money-input";
+			input.replaceWith(wrap);
+			wrap.appendChild(input);
+		} else {
+			parent.classList.add("money-input");
+		}
+		mark.className = "money-prefix";
+		mark.setAttribute("aria-hidden", "true");
+		mark.textContent = "R$";
+		wrap.insertBefore(mark, input);
+	}
+
+	document
+		.querySelectorAll('input[data-mask="money"]')
+		.forEach(addMoneyPrefix);
 
 	var calculators = document.querySelectorAll("[data-calculator]");
 	calculators.forEach((calculator) => {

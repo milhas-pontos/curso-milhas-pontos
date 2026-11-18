@@ -821,9 +821,13 @@ tr.total td {
 	border-color: var(--blue);
 	outline: 3px solid var(--blue-soft);
 }
-.calculator-input[readonly] {
+.calculator-input[readonly],
+.calculator-input:disabled {
 	font-weight: 400;
+	color: var(--ink);
+	background: #edf1f7;
 	cursor: default;
+	opacity: 1;
 }
 .calculator-input[readonly]:focus {
 	border-color: var(--line);
@@ -941,6 +945,46 @@ select.calculator-input {
 .field-note strong {
 	color: var(--ink);
 	font-weight: 700;
+}
+.money-input {
+	position: relative;
+	min-width: 0;
+}
+.money-prefix {
+	position: absolute;
+	left: 12px;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	color: var(--muted);
+	font-weight: 400;
+	line-height: 1;
+	pointer-events: none;
+	user-select: none;
+}
+.money-input .calculator-input {
+	padding-left: 40px;
+}
+.pct-input {
+	position: relative;
+	min-width: 0;
+}
+.pct-suffix {
+	position: absolute;
+	right: 12px;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	color: var(--muted);
+	font-weight: 400;
+	line-height: 1;
+	pointer-events: none;
+	user-select: none;
+}
+.pct-input .calculator-input {
+	padding-right: 32px;
 }
 .fx-lookup {
 	position: relative;

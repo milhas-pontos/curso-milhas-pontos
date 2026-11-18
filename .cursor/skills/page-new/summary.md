@@ -81,8 +81,8 @@ Calculadoras editáveis para custo por milheiro, transferência com bônus, o va
 | --- | --- | --- |
 | 1 | Como Calcular o CPM | Aplicar a fórmula e comparar só contas iguais, sem bônus que ainda não chegou. Milheiro barato não significa passagem barata. |
 | 2 | Valores de Referência do Milheiro | Tabela com data e fontes. A mesma tabela está nas calculadoras. |
-| 3 | Custo Por Milheiro | CPM a partir dos pontos comprados e do valor pago. |
-| 4 | Custo Por Milheiro - Transferência | Proporção e bônus, pontos recebidos e CPM antes e depois. |
+| 3 | Custo por Milheiro (CPM) | CPM a partir dos pontos comprados e do valor pago. |
+| 4 | Transferência no Carrinho | Soma os pontos Livelo ou Esfera aos pontos comprados no carrinho. O bônus incide sobre a soma, na proporção de 1 para 1. O CPM final divide o custo dos dois lotes pelos pontos recebidos. |
 | 5 | Emissão de Passagem | Estimar a emissão em reais. O milheiro começa na referência do programa e pode ser alterado. Ida e volta são opcionais. |
 | 6 | ALL Accor | Custo de transformar milhas em crédito ALL. Ao escolher a LATAM Pass, entram o milheiro de referência e 6.000 milhas para 1.000 Pontos Reward. A lupa busca a PTAX de venda do euro. Bônus da promoção só entra quando preenchido. |
 | 7 | Cartão de Crédito | Cashback da compra e pontos por dólar gasto. A lupa busca a PTAX de venda do dólar. O Nubank Ultravioleta preenche 1,25% e 2,2 pontos por dólar. O Nubank Croma preenche 0,8% e 1,4. O exemplo hipotético de R$ 4.000, com o dólar a R$ 5,34, dá R$ 50 e 1.648 pontos. Para conseguir 1.000 pontos, a compra precisa ser de R$ 2.427,27 com o dólar a R$ 5,34. O cashback recebido para os 1.000 pontos incide sobre esse gasto: R$ 2.727,27 × 1,25% = R$ 34,09, com o dólar a R$ 6,00. |

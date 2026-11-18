@@ -2,8 +2,10 @@
 	"name": "milhas-e-pontos",
 	"version": "1.0.0",
 	"private": true,
-	"description": "Milhas & Pontos. Curso em src/curso/ e slides em src/slides/; yarn start na raiz",
+	"description": "Milhas & Pontos. Curso em src/curso/ e slides em src/slides/; pnpm start na raiz",
+	"packageManager": "pnpm@12.15.0",
 	"scripts": {
+		"start": "node server.js",
 		"dev": "node --watch server.js"
 	},
 	"devDependencies": {

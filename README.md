@@ -7,15 +7,15 @@ Curso em páginas HTML estáticas, sem framework.
 Na raiz do projeto:
 
 ```bash
-yarn install
-yarn start
+pnpm install
+pnpm start
 ```
 
 Abra http://localhost:3000. Se a porta estiver ocupada, o terminal mostra o endereço usado.
 
 O menu do curso é montado no navegador a partir das pastas de `src/curso/content/`, que o `serve` lista para a página. Não há build: ao criar, renomear ou apagar uma aula, basta atualizar a página (F5).
 
-O curso precisa do `yarn start` rodando. Aberto direto do disco ou publicado em hospedagem estática, o menu não carrega.
+O curso precisa do `pnpm start` rodando. Aberto direto do disco ou publicado em hospedagem estática, o menu não carrega.
 
 ## Estrutura
 

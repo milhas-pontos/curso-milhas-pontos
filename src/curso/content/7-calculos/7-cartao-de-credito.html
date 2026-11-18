@@ -69,7 +69,10 @@
                 </div>
                 <div class="calculator-field">
                   <label for="cc-cashback">Cashback (%)</label>
-                  <input class="calculator-input" id="cc-cashback" name="cashback" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off">
+                  <div class="pct-input">
+                    <input class="calculator-input" id="cc-cashback" name="cashback" type="text" inputmode="decimal" data-mask="decimal" autocomplete="off">
+                    <span class="pct-suffix" aria-hidden="true">%</span>
+                  </div>
                 </div>
                 <div class="calculator-field">
                   <label for="cc-points">Pontos</label>

@@ -3,9 +3,9 @@
 	"provider": "node",
 	"packages": {
 		"node": "22",
-		"yarn": "1"
+		"pnpm": "12"
 	},
 	"deploy": {
-		"startCommand": "yarn start"
+		"startCommand": "pnpm start"
 	}
 }

@@ -17,7 +17,7 @@ Mapa: [summary.md](summary.md). Casca: [components.md](components.md). Escrita: 
 3. Edite essa aula e a mesma mudança no slide do módulo em `src/slides/content/` (um HTML por módulo). Confira `data-lesson="m<módulo>-a<aula>"` com os números da pasta e do arquivo. Aula ou módulo novo entra em `src/curso/content/modulos.json`. Título de módulo novo ou renomeado entra também em `src/slides/content/modulos.json`.
 4. Escreva o texto de novo. Siga [brief.md](brief.md).
 5. Confira a conta, os links relativos e o botão de concluir.
-6. Com `yarn start` na raiz, abra a aula e o slide, marque e desmarque como concluída e olhe a largura de celular. Se mexeu em calculadora ou no milheiro de referência, abra também `/calculadora/`. Se não der para abrir o browser, diga isso.
+6. Com `pnpm start` na raiz, abra a aula e o slide, marque e desmarque como concluída e olhe a largura de celular. Se mexeu em calculadora ou no milheiro de referência, abra também `/calculadora/`. Se não der para abrir o browser, diga isso.
 
 ## Curso, slides e calculadoras
 

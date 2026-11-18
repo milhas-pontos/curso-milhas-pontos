@@ -2,7 +2,7 @@
 
 Não recrie `src/curso/styles.css` nem `src/curso/script.js`. Copie uma aula de `src/curso/content/`. Não espalhe `<style>` na aula. Mudança de visual vai em `src/curso/styles.css`, nas variáveis de `:root`. Não cole cor fixa.
 
-O menu só monta com `yarn start`. Aberto do disco, a página avisa. O script lista `src/curso/content/` e lê `src/curso/content/modulos.json`. Pasta ou arquivo fora de `N-slug` fica de fora. O id é `m<módulo>-a<aula>`, pelos números. O título vem do JSON.
+O menu só monta com `pnpm start`. Aberto do disco, a página avisa. O script lista `src/curso/content/` e lê `src/curso/content/modulos.json`. Pasta ou arquivo fora de `N-slug` fica de fora. O id é `m<módulo>-a<aula>`, pelos números. O título vem do JSON.
 
 Na aula, `data-root="../../"` e os links de CSS e JS usam esse prefixo. Na home do curso, `data-root` fica vazio e não há `data-lesson`.
 
