@@ -26,7 +26,7 @@
 		return found && found.titulo ? found.titulo : `Aula ${number}`;
 	}
 
-	/* O `serve` devolve a listagem da pasta em JSON quando o pedido aceita JSON. */
+	/* O servidor devolve a listagem da pasta em JSON quando o pedido aceita JSON. */
 	function listFolder(path) {
 		return fetch(url(path), { headers: { Accept: "application/json" } })
 			.then((res) => {

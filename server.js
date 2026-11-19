@@ -1,8 +1,32 @@
 const http = require("http");
-const handler = require("serve-handler");
+const fs = require("fs");
+const path = require("path");
 const config = require("./serve.json");
 
 const PORT = Number(process.env.PORT) || 3000;
+const ROOT = process.cwd();
+
+const MIME = {
+	".html": "text/html; charset=utf-8",
+	".css": "text/css; charset=utf-8",
+	".js": "text/javascript; charset=utf-8",
+	".json": "application/json; charset=utf-8",
+	".svg": "image/svg+xml",
+	".png": "image/png",
+	".jpg": "image/jpeg",
+	".jpeg": "image/jpeg",
+	".webp": "image/webp",
+	".gif": "image/gif",
+	".ico": "image/x-icon",
+	".woff2": "font/woff2",
+	".txt": "text/plain; charset=utf-8",
+};
+
+const NO_CACHE_HEADERS = {
+	"Cache-Control": "no-cache, no-store, must-revalidate",
+	Pragma: "no-cache",
+	Expires: "0",
+};
 
 function decodePath(pathname) {
 	try {
@@ -13,36 +37,42 @@ function decodePath(pathname) {
 }
 
 function route(pathname) {
-	const path = decodePath(pathname);
-	if (path === null) return { error: 400 };
+	const decoded = decodePath(pathname);
+	if (decoded === null) return { error: 400 };
 
 	if (
-		path === "/src/slides" ||
-		path === "/src/slides/" ||
-		path === "/src/slides/index.html"
+		decoded === "/src/slides" ||
+		decoded === "/src/slides/" ||
+		decoded === "/src/slides/index.html"
 	) {
 		return { redirect: "/slides/" };
 	}
 
-	if (path === "/slides" || path === "/slides/") {
+	if (decoded === "/slides" || decoded === "/slides/") {
 		return { path: "/src/slides/index.html" };
 	}
 
-	if (path.startsWith("/slides/")) {
-		return { path: `/src${path}` };
+	if (decoded.startsWith("/slides/")) {
+		return { path: `/src${decoded}` };
 	}
 
-	return { path };
+	const rewrite = (config.rewrites || []).find((item) => item.source === decoded);
+	return { path: rewrite ? rewrite.destination : decoded };
 }
 
-const NO_CACHE_HEADERS = {
-	"Cache-Control": "no-cache, no-store, must-revalidate",
-	Pragma: "no-cache",
-	Expires: "0",
-};
+function insideRoot(resolved) {
+	const relative = path.relative(ROOT, resolved);
+	return (
+		relative === "" ||
+		(!relative.startsWith("..") && !path.isAbsolute(relative))
+	);
+}
 
-function asciiHeader(value) {
-	return String(value).replace(/[^\t\x20-\x7e]/g, "_");
+function resolvePublic(urlPath) {
+	const decoded = decodePath(urlPath);
+	if (decoded === null || !decoded.startsWith("/")) return null;
+	const resolved = path.resolve(ROOT, `.${decoded}`);
+	return insideRoot(resolved) ? resolved : null;
 }
 
 function applyNoCache(response) {
@@ -51,40 +81,66 @@ function applyNoCache(response) {
 	}
 }
 
-function safeHeaders(response) {
-	const setHeader = response.setHeader;
-	response.setHeader = (name, value) => {
-		if (
-			name.toLowerCase() === "content-disposition" &&
-			typeof value === "string"
-		) {
-			return setHeader.call(response, name, asciiHeader(value));
-		}
-		return setHeader.call(response, name, value);
-	};
+async function listDirectory(dir) {
+	const names = await fs.promises.readdir(dir);
+	const files = [];
+	for (const name of names) {
+		if (name.startsWith(".")) continue;
+		const stat = await fs.promises.lstat(path.join(dir, name));
+		const directory = stat.isDirectory();
+		files.push({
+			type: directory ? "folder" : "file",
+			name,
+			base: directory ? `${name}/` : name,
+		});
+	}
+	return files;
+}
 
-	const writeHead = response.writeHead;
-	response.writeHead = (statusCode, statusMessage, headers) => {
-		const target =
-			headers && typeof headers === "object"
-				? headers
-				: statusMessage && typeof statusMessage === "object"
-					? statusMessage
-					: null;
-		if (target) {
-			if (typeof target["Content-Disposition"] === "string") {
-				target["Content-Disposition"] = asciiHeader(
-					target["Content-Disposition"],
-				);
-			}
-			Object.assign(target, NO_CACHE_HEADERS);
+function sendFile(response, filePath) {
+	const type = MIME[path.extname(filePath).toLowerCase()] || "application/octet-stream";
+	response.writeHead(200, { "Content-Type": type });
+	fs.createReadStream(filePath)
+		.on("error", () => {
+			if (!response.headersSent) response.writeHead(500);
+			response.end();
+		})
+		.pipe(response);
+}
+
+async function serve(response, urlPath, accept) {
+	const resolved = resolvePublic(urlPath);
+	if (!resolved) {
+		response.writeHead(403);
+		response.end("Forbidden");
+		return;
+	}
+
+	let stat;
+	try {
+		stat = await fs.promises.stat(resolved);
+	} catch {
+		response.writeHead(404);
+		response.end("Not Found");
+		return;
+	}
+
+	if (stat.isDirectory()) {
+		if (String(accept).includes("application/json")) {
+			const files = await listDirectory(resolved);
+			response.writeHead(200, {
+				"Content-Type": "application/json; charset=utf-8",
+			});
+			response.end(JSON.stringify({ files }));
+			return;
 		}
-		return writeHead.call(response, statusCode, statusMessage, headers);
-	};
+		return serve(response, `${urlPath.replace(/\/$/, "")}/index.html`, "");
+	}
+
+	sendFile(response, resolved);
 }
 
 const server = http.createServer((request, response) => {
-	safeHeaders(response);
 	applyNoCache(response);
 
 	const url = new URL(request.url, "http://127.0.0.1");
@@ -102,8 +158,7 @@ const server = http.createServer((request, response) => {
 		return;
 	}
 
-	request.url = encodeURI(mapped.path) + url.search;
-	return handler(request, response, config).catch((err) => {
+	serve(response, mapped.path, request.headers.accept).catch((err) => {
 		console.error(err);
 		if (!response.headersSent) {
 			response.writeHead(500);
