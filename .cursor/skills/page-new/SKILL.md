@@ -25,9 +25,9 @@ A mesma mudança entra no curso e no slide do módulo. Os slides `0-abertura.htm
 
 Calculadora (formulário, conta, rótulo ou texto) ou valor de referência do milheiro também entra em `src/calculadora/index.html`.
 
-A referência do milheiro está na aula 7.2, no slide do módulo 7, na tabela de `src/calculadora/index.html` e no `data-reference` da emissão (aula 7.5, slide do módulo 7 e a página de calculadoras).
+O teto verde do milheiro fica em `src/curso/referencias-milheiro.js`. A aula 7.2, o slide do módulo 7 e a tabela de `src/calculadora/index.html` mostram esse teto em `[data-mile-program]`. O select com `data-program-source` é preenchido por esse arquivo: nome, teto e, na LATAM Pass, a proporção de 6.000. Não grave a lista de programas no HTML nem outro número no `data-reference`.
 
-A conta está em `src/curso/script-calculadoras.js`. O slide usa a cópia `src/slides/script-calculadoras.js`. A página de calculadoras usa o script do curso. Se a conta mudar, atualize os dois scripts.
+A conta está em `src/curso/script-calculadoras.js`. A aula, o slide e a página de calculadoras usam esse script.
 
 Deixe curso, slide ou calculadora de fora só se o usuário pedir para alterar só uma dessas partes.
 

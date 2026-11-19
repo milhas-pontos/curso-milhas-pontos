@@ -72,44 +72,38 @@
                 </div>
                 <div class="calculator-field">
                   <label for="program">Programa de pontos</label>
-                  <select class="calculator-input" id="program" name="program">
+                  <select class="calculator-input" id="program" name="program" data-program-source data-logo-base="../../../assets/logos/">
                     <option value="">Selecione</option>
-                    <option value="avios" data-reference="56" data-logo="../../../assets/logos/avios.svg">Avios</option>
-                    <option value="azul" data-reference="15" data-logo="../../../assets/logos/azul.svg">Azul Fidelidade</option>
-                    <option value="esfera" data-reference="31.5" data-logo="../../../assets/logos/esfera.webp">Esfera</option>
-                    <option value="latam" data-reference="25" data-logo="../../../assets/logos/latam-pass.svg">LATAM Pass</option>
-                    <option value="livelo" data-reference="30" data-logo="../../../assets/logos/livelo.svg">Livelo</option>
-                    <option value="smiles" data-reference="16" data-logo="../../../assets/logos/smiles.svg">Smiles</option>
                   </select>
                   <p class="field-note is-blank" data-reference-note>Milheiro de referência: <strong data-output="reference">—</strong></p>
                 </div>
                 <div class="calculator-field">
                   <label for="reference-rate">Milheiro de referência</label>
-                  <input class="calculator-input" id="reference-rate" name="reference-rate" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                  <input class="calculator-input" id="reference-rate" name="reference-rate" type="text" inputmode="decimal" data-mask="money" placeholder="Opcional" autocomplete="off">
                 </div>
                 <div class="calculator-field">
                   <label for="points-out">Ida - Pontos</label>
-                  <input class="calculator-input" id="points-out" name="points-out" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
+                  <input class="calculator-input" id="points-out" name="points-out" type="text" inputmode="numeric" data-mask="integer" placeholder="Opcional" autocomplete="off">
                 </div>
                 <div class="calculator-field">
                   <label for="fees-out">Ida - Taxas</label>
-                  <input class="calculator-input" id="fees-out" name="fees-out" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                  <input class="calculator-input" id="fees-out" name="fees-out" type="text" inputmode="decimal" data-mask="money" placeholder="Opcional" autocomplete="off">
                 </div>
                 <div class="calculator-field">
                   <label for="cash-out">Ida - Valor com taxas</label>
-                  <input class="calculator-input" id="cash-out" name="cash-out" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                  <input class="calculator-input" id="cash-out" name="cash-out" type="text" inputmode="decimal" data-mask="money" placeholder="Opcional" autocomplete="off">
                 </div>
                 <div class="calculator-field">
                   <label for="points-back">Volta - Pontos</label>
-                  <input class="calculator-input" id="points-back" name="points-back" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
+                  <input class="calculator-input" id="points-back" name="points-back" type="text" inputmode="numeric" data-mask="integer" placeholder="Opcional" autocomplete="off">
                 </div>
                 <div class="calculator-field">
                   <label for="fees-back">Volta - Taxas</label>
-                  <input class="calculator-input" id="fees-back" name="fees-back" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                  <input class="calculator-input" id="fees-back" name="fees-back" type="text" inputmode="decimal" data-mask="money" placeholder="Opcional" autocomplete="off">
                 </div>
                 <div class="calculator-field">
                   <label for="cash-back">Volta - Valor com taxas</label>
-                  <input class="calculator-input" id="cash-back" name="cash-back" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                  <input class="calculator-input" id="cash-back" name="cash-back" type="text" inputmode="decimal" data-mask="money" placeholder="Opcional" autocomplete="off">
                 </div>
               </div>
               <div class="award-board" aria-live="polite">
@@ -224,6 +218,7 @@
     </main>
   </div>
   <script src="../../script.js"></script>
+  <script src="../../referencias-milheiro.js"></script>
   <script src="../../script-calculadoras.js"></script>
 </body>
 </html>

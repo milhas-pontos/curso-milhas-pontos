@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -14,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <a class="skip-link" href="/calculadora/#conteudo">Pular para o conteúdo</a>
   <header class="topbar">
@@ -33,6 +35,7 @@
         <a href="/calculadora/#pos-transferencia">Transferência no Carrinho</a>
         <a href="/calculadora/#emissao-de-passagem">Emissão de Passagem</a>
         <a href="/calculadora/#credito-all-accor">ALL Accor</a>
+        <a href="/calculadora/#all-accor-hospedagem">All Accor (Hospedagem)</a>
         <a href="/calculadora/#cartao-de-credito">Cartão de Crédito</a>
         <a href="/calculadora/#valores-de-referencia">Valores de referência do milheiro</a>
       </nav>
@@ -42,7 +45,7 @@
         <header class="hero">
           <div class="eyebrow">Calculadoras</div>
           <h1>Calculadoras</h1>
-          <p class="lead">Contas de custo, transferência, emissão, ALL Accor e cartão de crédito.</p>
+          <p class="lead">Contas de custo, transferência, emissão, ALL Accor, hospedagem e cartão de crédito.</p>
         </header>
         <div class="body">
           <section class="section" id="custo-por-milheiro">
@@ -125,12 +128,14 @@
           <section class="section" id="emissao-de-passagem">
             <div class="kicker">03 · Calculadora</div>
             <h2>Emissão de Passagem</h2>
-            <p>Ida e volta são opcionais. Se a promoção mostra só um trecho, deixe o outro em branco. A classe identifica a emissão. Ao escolher o programa, o valor de referência aparece embaixo dele. O campo ao lado começa com esse valor e é o milheiro da conta. Você pode trocá-lo.</p>
+            <p>Ida e volta são opcionais. Se a promoção mostra só um trecho, deixe o outro em branco. A classe identifica a emissão. Ao escolher o programa, o valor de referência aparece embaixo dele.
+              O campo ao lado começa com esse valor e é o milheiro da conta. Você pode trocá-lo.</p>
             <div class="callout warning">
               <div class="callout-icon">!</div>
               <div>
                 <strong>Compare a mesma passagem</strong>
-                <p>O milheiro é o teto da faixa verde em <a href="/calculadora/#valores-de-referencia">Valores de referência</a>, referência de novembro de 2026. Não é o preço que você pagou. Taxa em branco não entra na conta. Use a mesma data, bagagem, horário e conexão. Se a economia ficar negativa, pagar em dinheiro é mais barato.</p>
+                <p>O milheiro é o teto da faixa verde em <a href="/calculadora/#valores-de-referencia">Valores de referência</a>, referência de novembro de 2026. Não é o preço que você pagou. Taxa em
+                  branco não entra na conta. Use a mesma data, bagagem, horário e conexão. Se a economia ficar negativa, pagar em dinheiro é mais barato.</p>
               </div>
             </div>
             <div class="calculator" data-calculator="award">
@@ -147,14 +152,8 @@
                 </div>
                 <div class="calculator-field">
                   <label for="program">Programa de pontos</label>
-                  <select class="calculator-input" id="program" name="program">
+                  <select class="calculator-input" id="program" name="program" data-program-source data-logo-base="../assets/logos/">
                     <option value="">Selecione</option>
-                    <option value="avios" data-reference="56" data-logo="../assets/logos/avios.svg">Avios</option>
-                    <option value="azul" data-reference="15" data-logo="../assets/logos/azul.svg">Azul Fidelidade</option>
-                    <option value="esfera" data-reference="31.5" data-logo="../assets/logos/esfera.webp">Esfera</option>
-                    <option value="latam" data-reference="25" data-logo="../assets/logos/latam-pass.svg">LATAM Pass</option>
-                    <option value="livelo" data-reference="30" data-logo="../assets/logos/livelo.svg">Livelo</option>
-                    <option value="smiles" data-reference="16" data-logo="../assets/logos/smiles.svg">Smiles</option>
                   </select>
                   <p class="field-note is-blank" data-reference-note>Milheiro de referência: <strong data-output="reference">—</strong></p>
                 </div>
@@ -274,14 +273,14 @@
           <section class="section" id="credito-all-accor">
             <div class="kicker">04 · Calculadora</div>
             <h2>ALL Accor</h2>
-            <p>Escolha a LATAM Pass para usar o milheiro de referência e a proporção de 6.000 milhas para 1.000 Pontos Reward. O bônus da promoção só entra quando você preenche.</p>
+            <p>Ao escolher o programa, o milheiro de referência entra na conta. A LATAM Pass também preenche 6.000 milhas para 1.000 Pontos Reward. Nos outros programas, informe a proporção. O bônus
+              da promoção só entra quando você preenche.</p>
             <div class="calculator accor" data-calculator="accor">
               <div class="calculator-fields cols-3">
                 <div class="calculator-field">
                   <label for="c-accor-program">Programa de origem</label>
-                  <select class="calculator-input" id="c-accor-program" name="program">
+                  <select class="calculator-input" id="c-accor-program" name="program" data-program-source data-logo-base="../assets/logos/">
                     <option value="">Selecione</option>
-                    <option value="latam" data-reference="25" data-ratio="6000">LATAM Pass</option>
                   </select>
                   <p class="field-note is-blank" data-reference-note>Milheiro de referência: <strong data-output="reference">—</strong></p>
                 </div>
@@ -306,42 +305,106 @@
                   </div>
                 </div>
                 <div class="calculator-field">
-                  <label for="c-accor-euro">Euros por 1.000 Reward</label>
-                  <input class="calculator-input" id="c-accor-euro" name="euro-block" type="text" inputmode="decimal" data-mask="decimal" value="20" autocomplete="off">
+                  <label for="c-accor-euro">CPM Rewards (€)</label>
+                  <input class="calculator-input" id="c-accor-euro" name="euro-block" type="text" inputmode="decimal" data-mask="money" data-prefix="euro" value="20,00" autocomplete="off">
                 </div>
                 <div class="calculator-field">
-                  <label for="c-accor-fx">Câmbio do euro (R$)</label>
+                  <label for="c-accor-fx">Euro (R$)</label>
                   <div class="fx-lookup">
                     <input class="calculator-input" id="c-accor-fx" name="fx" type="text" inputmode="decimal" data-mask="money" placeholder="Opcional" autocomplete="off">
                     <button type="button" class="fx-lookup-button" data-fx-lookup aria-label="Buscar cotação do euro">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2" />
+                        <path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
                     </button>
                   </div>
                   <p class="field-note fx-quote is-blank" data-fx-note></p>
                 </div>
               </div>
               <div class="calculator-results accor-results" aria-live="polite">
-                <div class="calculator-result"><span>Custo da operação</span><output data-output="cost">—</output></div>
-                <div class="calculator-result"><span>Pontos Awards</span><output data-output="received">—</output></div>
-                <div class="calculator-result"><span>Crédito</span><output data-output="credit">—</output></div>
-                <div class="calculator-result"><span>Valor nominal</span><output data-output="nominal">—</output></div>
-                <div class="calculator-result"><span>Valor diferença R$</span><output data-output="gap">—</output></div>
-                <div class="calculator-result"><span>Diferença em %</span><output data-output="gap-pct">—</output></div>
+                <div class="calculator-result"><span>Custo dos pontos do programa</span><output data-output="cost">—</output>
+                  <p class="calculator-detail" data-output="cost-points">—</p>
+                </div>
+                <div class="calculator-result"><span>Pontos Rewards</span><output data-output="received">—</output>
+                  <p class="calculator-detail" data-output="credit">—</p>
+                </div>
+                <div class="calculator-result"><span>Milheiro All Accor</span><output data-output="mile-euro">—</output>
+                  <p class="calculator-detail" data-output="mile-real">—</p>
+                </div>
+                <div class="calculator-result"><span>Milheiro All Accor atual</span><output data-output="mile-now">—</output>
+                  <p class="calculator-detail" data-output="mile-now-euro">—</p>
+                </div>
+                <div class="calculator-result"><span>Desconto</span><output data-output="discount">—</output></div>
               </div>
             </div>
             <div class="callout">
               <div class="callout-icon">i</div>
               <div>
-                <strong>Diferença não é lucro</strong>
+                <strong>Crédito não é dinheiro na conta</strong>
                 <p>O crédito só vira desconto numa hospedagem ALL. A transferência, em geral, não volta. Confira proporção, mínimo e múltiplo no site da parceria antes de transferir.</p>
               </div>
             </div>
           </section>
 
-          <section class="section" id="cartao-de-credito">
+          <section class="section" id="all-accor-hospedagem">
             <div class="kicker">05 · Calculadora</div>
+            <h2>All Accor (Hospedagem)</h2>
+            <p>Informe o preço da reserva. Na linha de baixo, os Reward usados, o CPM de 1.000 Reward, o euro em reais e o seu CPM. A hospedagem com desconto tira do preço o crédito desses pontos em
+              reais.</p>
+            <div class="calculator" data-calculator="accor-stay">
+              <div class="calculator-fields cols-2">
+                <div class="calculator-field">
+                  <label for="c-stay-hotel">Valor total da hospedagem</label>
+                  <input class="calculator-input" id="c-stay-hotel" name="stay" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                </div>
+              </div>
+              <div class="calculator-fields cols-4">
+                <div class="calculator-field">
+                  <label for="c-stay-rewards">Quantidade de pontos Reward</label>
+                  <input class="calculator-input" id="c-stay-rewards" name="rewards" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
+                </div>
+                <div class="calculator-field">
+                  <label for="c-stay-cpm">CPM Rewards (€)</label>
+                  <input class="calculator-input" id="c-stay-cpm" name="reward-cpm" type="text" inputmode="decimal" data-mask="money" data-prefix="euro" value="20,00" autocomplete="off">
+                </div>
+                <div class="calculator-field">
+                  <label for="c-stay-fx">Euro (R$)</label>
+                  <div class="fx-lookup">
+                    <input class="calculator-input" id="c-stay-fx" name="fx" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                    <button type="button" class="fx-lookup-button" data-fx-lookup aria-label="Buscar cotação do euro">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2" />
+                        <path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </button>
+                  </div>
+                  <p class="field-note fx-quote is-blank" data-fx-note></p>
+                </div>
+                <div class="calculator-field">
+                  <label for="c-stay-cpm-mine">Meu CPM Rewards (€)</label>
+                  <input class="calculator-input" id="c-stay-cpm-mine" name="reward-cpm-mine" type="text" inputmode="decimal" data-mask="money" data-prefix="euro" autocomplete="off">
+                </div>
+              </div>
+              <div class="calculator-results stay-results" aria-live="polite">
+                <div class="calculator-result"><span>Valor da hospedagem com desconto</span><output data-output="stay-discounted">—</output>
+                  <p class="calculator-detail" data-output="stay-discount-note">- R$ 0,00 (desconto usando pontos)</p>
+                </div>
+                <div class="calculator-result"><span>Custo da hospedagem</span><output data-output="stay-cost">—</output>
+                  <p class="calculator-detail" data-output="stay-cost-note">+ R$ 0,00 (custos dos pontos Reward)</p>
+                </div>
+                <div class="calculator-result"><span>Percentual de desconto</span><output data-output="discount-pct">—</output>
+                  <p class="calculator-detail" data-output="discount-money">—</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section" id="cartao-de-credito">
+            <div class="kicker">06 · Calculadora</div>
             <h2>Cartão de Crédito</h2>
-            <p>Pontos é quantos pontos o cartão dá por cada dólar gasto. O dólar é a cotação usada nessa conta. A lupa busca a última PTAX de venda do dólar no Banco Central. O valor pode ser alterado. O Nubank Ultravioleta preenche 1,25% de cashback e 2,2 pontos por dólar. O Nubank Croma preenche 0,8% e 1,4. Sem cartão, informe esses campos. O resultado de pontos é arredondado.</p>
+            <p>Pontos é quantos pontos o cartão dá por cada dólar gasto. O dólar é a cotação usada nessa conta. O Nubank Ultravioleta preenche 1,25% de cashback e 2,2 pontos por dólar. O Nubank Croma
+              preenche 0,8% e 1,4. Sem cartão, informe esses campos. O resultado de pontos é arredondado.</p>
             <div class="calculator" data-calculator="credit-card">
               <div class="calculator-fields cols-4">
                 <div class="calculator-field span-2">
@@ -374,7 +437,10 @@
                   <div class="fx-lookup">
                     <input class="calculator-input" id="card-dollar" name="dollar" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
                     <button type="button" class="fx-lookup-button" data-fx-lookup data-fx-currency="USD" aria-label="Buscar cotação do dólar">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2" />
+                        <path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
                     </button>
                   </div>
                   <p class="field-note fx-quote is-blank" data-fx-note></p>
@@ -390,39 +456,39 @@
           </section>
 
           <section class="section" id="valores-de-referencia">
-            <div class="kicker">06 · Referência</div>
+            <div class="kicker">07 · Referência</div>
             <h2>Valores de referência do milheiro</h2>
             <p>Teto de novembro de 2026. É o valor que a calculadora de emissão preenche ao escolher o programa.</p>
             <div class="reference-grid">
               <div class="reference-card">
                 <strong><img class="program-logo" height="22" src="../assets/logos/livelo.svg" alt="">Livelo</strong>
                 <p class="muted">Pontos de origem</p>
-                <div class="metric green">Até R$ 30</div>
+                <div class="metric green" data-mile-program="livelo">Até R$ 30</div>
               </div>
               <div class="reference-card">
                 <strong><img class="program-logo" height="22" src="../assets/logos/esfera.webp" alt="">Esfera</strong>
                 <p class="muted">Pontos de origem</p>
-                <div class="metric green">Até R$ 31,50</div>
+                <div class="metric green" data-mile-program="esfera">Até R$ 31,50</div>
               </div>
               <div class="reference-card">
                 <strong><img class="program-logo" height="22" src="../assets/logos/azul.svg" alt="">Azul Fidelidade</strong>
                 <p class="muted">Milhas</p>
-                <div class="metric green">Até R$ 15</div>
+                <div class="metric green" data-mile-program="azul">Até R$ 15</div>
               </div>
               <div class="reference-card">
                 <strong><img class="program-logo" height="22" src="../assets/logos/smiles.svg" alt="">Smiles</strong>
                 <p class="muted">Milhas</p>
-                <div class="metric green">Até R$ 16</div>
+                <div class="metric green" data-mile-program="smiles">Até R$ 16</div>
               </div>
               <div class="reference-card">
                 <strong><img class="program-logo" height="22" src="../assets/logos/latam-pass.svg" alt="">LATAM Pass</strong>
                 <p class="muted">Milhas</p>
-                <div class="metric green">Até R$ 25</div>
+                <div class="metric green" data-mile-program="latam">Até R$ 25</div>
               </div>
               <div class="reference-card">
                 <strong><img class="program-logo" height="22" src="../assets/logos/avios.svg" alt="">Avios</strong>
                 <p class="muted">Iberia, British, Finnair e Qatar</p>
-                <div class="metric green">Até R$ 56</div>
+                <div class="metric green" data-mile-program="avios">Até R$ 56</div>
               </div>
             </div>
           </section>
@@ -430,6 +496,7 @@
       </article>
     </main>
   </div>
+  <script src="../curso/referencias-milheiro.js"></script>
   <script src="../curso/script-calculadoras.js"></script>
   <script>
     (function () {
@@ -470,4 +537,5 @@
     })();
   </script>
 </body>
+
 </html>

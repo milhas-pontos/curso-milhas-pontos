@@ -75,7 +75,7 @@
 	function loadCalculators() {
 		if (!stage.querySelector("[data-calculator]")) return;
 		var script = document.createElement("script");
-		script.src = "script-calculadoras.js";
+		script.src = "/src/curso/script-calculadoras.js";
 		document.body.appendChild(script);
 	}
 

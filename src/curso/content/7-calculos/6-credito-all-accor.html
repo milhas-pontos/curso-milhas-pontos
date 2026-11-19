@@ -50,14 +50,13 @@
           <section class="section" id="calculadora">
             <div class="kicker">01 · Calculadora</div>
             <h2>Edite os valores</h2>
-            <p>Escolha a LATAM Pass para usar o milheiro de referência e a proporção de 6.000 milhas para 1.000 Pontos Reward. O bônus da promoção só entra quando você preenche.</p>
+            <p>Ao escolher o programa, o milheiro de referência entra na conta. A LATAM Pass também preenche 6.000 milhas para 1.000 Pontos Reward. Nos outros programas, informe a proporção. O bônus da promoção só entra quando você preenche.</p>
             <div class="calculator accor" data-calculator="accor">
               <div class="calculator-fields cols-3">
                 <div class="calculator-field">
                   <label for="accor-program">Programa de origem</label>
-                  <select class="calculator-input" id="accor-program" name="program">
+                  <select class="calculator-input" id="accor-program" name="program" data-program-source data-logo-base="../../../assets/logos/">
                     <option value="">Selecione</option>
-                    <option value="latam" data-reference="25" data-ratio="6000">LATAM Pass</option>
                   </select>
                   <p class="field-note is-blank" data-reference-note>Milheiro de referência: <strong data-output="reference">—</strong></p>
                 </div>
@@ -82,11 +81,11 @@
                   </div>
                 </div>
                 <div class="calculator-field">
-                  <label for="accor-euro">Euros por 1.000 Reward</label>
-                  <input class="calculator-input" id="accor-euro" name="euro-block" type="text" inputmode="decimal" data-mask="decimal" value="20" autocomplete="off">
+                  <label for="accor-euro">CPM Rewards (€)</label>
+                  <input class="calculator-input" id="accor-euro" name="euro-block" type="text" inputmode="decimal" data-mask="money" data-prefix="euro" value="20,00" autocomplete="off">
                 </div>
                 <div class="calculator-field">
-                  <label for="accor-fx">Câmbio do euro (R$)</label>
+                  <label for="accor-fx">Euro (R$)</label>
                   <div class="fx-lookup">
                     <input class="calculator-input" id="accor-fx" name="fx" type="text" inputmode="decimal" data-mask="money" placeholder="Opcional" autocomplete="off">
                     <button type="button" class="fx-lookup-button" data-fx-lookup aria-label="Buscar cotação do euro">
@@ -97,12 +96,11 @@
                 </div>
               </div>
               <div class="calculator-results accor-results" aria-live="polite">
-                <div class="calculator-result"><span>Custo da operação</span><output data-output="cost">—</output></div>
-                <div class="calculator-result"><span>Pontos Awards</span><output data-output="received">—</output></div>
-                <div class="calculator-result"><span>Crédito</span><output data-output="credit">—</output></div>
-                <div class="calculator-result"><span>Valor nominal</span><output data-output="nominal">—</output></div>
-                <div class="calculator-result"><span>Valor diferença R$</span><output data-output="gap">—</output></div>
-                <div class="calculator-result"><span>Diferença em %</span><output data-output="gap-pct">—</output></div>
+                <div class="calculator-result"><span>Custo dos pontos do programa</span><output data-output="cost">—</output><p class="calculator-detail" data-output="cost-points">—</p></div>
+                <div class="calculator-result"><span>Pontos Rewards</span><output data-output="received">—</output><p class="calculator-detail" data-output="credit">—</p></div>
+                <div class="calculator-result"><span>Milheiro All Accor</span><output data-output="mile-euro">—</output><p class="calculator-detail" data-output="mile-real">—</p></div>
+                <div class="calculator-result"><span>Milheiro All Accor atual</span><output data-output="mile-now">—</output><p class="calculator-detail" data-output="mile-now-euro">—</p></div>
+                <div class="calculator-result"><span>Desconto</span><output data-output="discount">—</output></div>
               </div>
             </div>
           </section>
@@ -119,15 +117,61 @@
               <div class="formula-label">Crédito em euros</div>
               <div class="equation">pontos recebidos ÷ 1.000 × euros do bloco</div>
             </div>
-            <p>O custo da operação é milhas ÷ 1.000 × valor do milheiro. A lupa ao lado do câmbio busca a última PTAX de venda do euro no Banco Central. O valor pode ser alterado. O valor nominal em reais usa esse câmbio. A diferença em reais é esse nominal menos o custo. A diferença em % divide essa conta pelo valor nominal.</p>
+            <p>O custo dos pontos do programa é milhas ÷ 1.000 × valor do milheiro. O card mostra a quantidade de pontos e, abaixo, o valor em reais. Abaixo dos Pontos Rewards aparece o crédito em euros. Com o câmbio preenchido, o valor em reais entra ao lado: € 20,00 ~ R$ 127,40, se o câmbio for R$ 6,37. A lupa busca a última PTAX de venda do euro no Banco Central. O valor pode ser alterado.</p>
+            <p>Milheiro All Accor é o valor de 1.000 Reward, os euros do bloco. Abaixo entra a conversão pelo câmbio. Milheiro All Accor atual usa a proporção: milhas para 1.000 Reward ÷ 1.000 × valor do milheiro. O bônus reduz esse custo. Com 6.000 milhas a R$ 25, sem bônus, e câmbio de R$ 6,37, o atual é € 23,55. Abaixo fica R$ 150,00. O Desconto compara os dois milheiros em reais: (127,40 − 150) ÷ 127,40 = −17,74%.</p>
             <p>Com 6.000 milhas e a proporção normal, chegam 1.000 Reward, que valem € 20. O custo é o das milhas.</p>
             <div class="callout">
               <div class="callout-icon">i</div>
               <div>
-                <strong>Diferença não é lucro</strong>
+                <strong>Crédito não é dinheiro na conta</strong>
                 <p>O crédito só vira desconto numa hospedagem ALL. A transferência, em geral, não volta. Confira proporção, mínimo e múltiplo no site da parceria antes de transferir.</p>
               </div>
             </div>
+          </section>
+
+          <section class="section" id="hospedagem">
+            <div class="kicker">03 · Calculadora</div>
+            <h2>All Accor (Hospedagem)</h2>
+            <p>Informe o preço da reserva. Na linha de baixo, os Reward usados, o CPM de 1.000 Reward, o euro em reais e o seu CPM. A hospedagem com desconto tira do preço o crédito desses pontos em reais.</p>
+            <div class="calculator" data-calculator="accor-stay">
+              <div class="calculator-fields cols-2">
+                <div class="calculator-field">
+                  <label for="stay-hotel">Valor total da hospedagem</label>
+                  <input class="calculator-input" id="stay-hotel" name="stay" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                </div>
+              </div>
+              <div class="calculator-fields cols-4">
+                <div class="calculator-field">
+                  <label for="stay-rewards">Quantidade de pontos Reward</label>
+                  <input class="calculator-input" id="stay-rewards" name="rewards" type="text" inputmode="numeric" data-mask="integer" autocomplete="off">
+                </div>
+                <div class="calculator-field">
+                  <label for="stay-cpm">CPM Rewards (€)</label>
+                  <input class="calculator-input" id="stay-cpm" name="reward-cpm" type="text" inputmode="decimal" data-mask="money" data-prefix="euro" value="20,00" autocomplete="off">
+                </div>
+                <div class="calculator-field">
+                  <label for="stay-fx">Euro (R$)</label>
+                  <div class="fx-lookup">
+                    <input class="calculator-input" id="stay-fx" name="fx" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
+                    <button type="button" class="fx-lookup-button" data-fx-lookup aria-label="Buscar cotação do euro">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                  </div>
+                  <p class="field-note fx-quote is-blank" data-fx-note></p>
+                </div>
+                <div class="calculator-field">
+                  <label for="stay-cpm-mine">Meu CPM Rewards (€)</label>
+                  <input class="calculator-input" id="stay-cpm-mine" name="reward-cpm-mine" type="text" inputmode="decimal" data-mask="money" data-prefix="euro" autocomplete="off">
+                </div>
+              </div>
+              <div class="calculator-results stay-results" aria-live="polite">
+                <div class="calculator-result"><span>Valor da hospedagem com desconto</span><output data-output="stay-discounted">—</output><p class="calculator-detail" data-output="stay-discount-note">- R$ 0,00 (desconto usando pontos)</p></div>
+                <div class="calculator-result"><span>Custo da hospedagem</span><output data-output="stay-cost">—</output><p class="calculator-detail" data-output="stay-cost-note">+ R$ 0,00 (custos dos pontos Reward)</p></div>
+                <div class="calculator-result"><span>Percentual de desconto</span><output data-output="discount-pct">—</output><p class="calculator-detail" data-output="discount-money">—</p></div>
+              </div>
+            </div>
+            <p>O desconto dos pontos é pontos ÷ 1.000 × CPM Rewards × Euro (R$). A hospedagem com desconto é o que ainda se paga no hotel: o preço da reserva menos esse desconto. O custo dos pontos é pontos ÷ 1.000 × Meu CPM Rewards × Euro (R$). O custo da hospedagem soma o que resta no hotel com esse custo. Se o desconto passar do preço, o hotel entra como zero nessa soma. O percentual é (valor total da hospedagem − custo da hospedagem) ÷ valor total da hospedagem. Abaixo dele aparece essa diferença em reais.</p>
+            <p>Exemplo hipotético. Hospedagem de R$ 2.522,48, 10.000 Reward, CPM de € 20, euro a R$ 6,37 e o seu CPM de € 15. O desconto dos pontos é 10 × 20 × 6,37 = R$ 1.274,00. No hotel ainda se pagam 2.522,48 − 1.274,00 = R$ 1.248,48. Os pontos custam 10 × 15 × 6,37 = R$ 955,50. O custo da hospedagem é 1.248,48 + 955,50 = R$ 2.203,98. O percentual é (2.522,48 − 2.203,98) ÷ 2.522,48 = 12,63%, ou R$ 318,50.</p>
           </section>
         </div>
         <div class="lesson-actions">
@@ -140,6 +184,7 @@
     </main>
   </div>
   <script src="../../script.js"></script>
+  <script src="../../referencias-milheiro.js"></script>
   <script src="../../script-calculadoras.js"></script>
 </body>
 </html>

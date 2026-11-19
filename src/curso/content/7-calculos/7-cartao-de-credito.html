@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -13,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../styles.css">
 </head>
+
 <body data-lesson="m7-a7" data-root="../../">
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <header class="topbar">
@@ -50,7 +52,8 @@
           <section class="section" id="calculadora">
             <div class="kicker">01 · Calculadora</div>
             <h2>Edite os valores</h2>
-            <p>Pontos é quantos pontos o cartão dá por cada dólar gasto. O dólar é a cotação usada nessa conta. A lupa busca a última PTAX de venda do dólar no Banco Central. O valor pode ser alterado. O Nubank Ultravioleta preenche 1,25% de cashback e 2,2 pontos por dólar. O Nubank Croma preenche 0,8% e 1,4. Sem cartão, informe esses campos.</p>
+            <p>Pontos é quantos pontos o cartão dá por cada dólar gasto. O dólar é a cotação usada nessa conta. O Nubank Ultravioleta preenche 1,25% de cashback e 2,2 pontos por dólar. O Nubank Croma
+              preenche 0,8% e 1,4. Sem cartão, informe esses campos.</p>
             <div class="calculator" data-calculator="credit-card">
               <div class="calculator-fields cols-4">
                 <div class="calculator-field span-2">
@@ -83,7 +86,10 @@
                   <div class="fx-lookup">
                     <input class="calculator-input" id="cc-dollar" name="dollar" type="text" inputmode="decimal" data-mask="money" autocomplete="off">
                     <button type="button" class="fx-lookup-button" data-fx-lookup data-fx-currency="USD" aria-label="Buscar cotação do dólar">
-                      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2" />
+                        <path d="M16 16.5 20.5 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
                     </button>
                   </div>
                   <p class="field-note fx-quote is-blank" data-fx-note></p>
@@ -116,8 +122,10 @@
               <div class="formula-label">Cashback recebido para os 1.000 pontos conseguidos</div>
               <div class="equation">gasto para 1.000 pontos × cashback ÷ 100</div>
             </div>
-            <p>Exemplo hipotético. Compra de R$ 4.000, cashback de 1,25% e 2,2 pontos por dólar, com o dólar a R$ 5,34. O cashback é 4.000 × 1,25 ÷ 100 = R$ 50. Os pontos são 4.000 ÷ 5,34 × 2,2 = 1.648, já arredondados.</p>
-            <p>Para conseguir 1.000 pontos, a compra precisa ter esse valor. O valor informado da compra não entra: 5,34 × 1.000 ÷ 2,2 = R$ 2.427,27. Com o dólar a R$ 6,00 e 2,2 pontos por dólar, o gasto é 6 × 1.000 ÷ 2,2 = R$ 2.727,27. O cashback recebido usa esse gasto: 2.727,27 × 1,25 ÷ 100 = R$ 34,09.</p>
+            <p>Exemplo hipotético. Compra de R$ 4.000, cashback de 1,25% e 2,2 pontos por dólar, com o dólar a R$ 5,34. O cashback é 4.000 × 1,25 ÷ 100 = R$ 50. Os pontos são 4.000 ÷ 5,34 × 2,2 =
+              1.648, já arredondados.</p>
+            <p>Para conseguir 1.000 pontos, a compra precisa ter esse valor. O valor informado da compra não entra: 5,34 × 1.000 ÷ 2,2 = R$ 2.427,27. Com o dólar a R$ 6,00 e 2,2 pontos por dólar, o
+              gasto é 6 × 1.000 ÷ 2,2 = R$ 2.727,27. O cashback recebido usa esse gasto: 2.727,27 × 1,25 ÷ 100 = R$ 34,09.</p>
             <div class="callout">
               <div class="callout-icon">i</div>
               <div>
@@ -139,4 +147,5 @@
   <script src="../../script.js"></script>
   <script src="../../script-calculadoras.js"></script>
 </body>
+
 </html>

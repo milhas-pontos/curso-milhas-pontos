@@ -193,6 +193,17 @@
 		}).format(value);
 	}
 
+	function officialMileReference(option) {
+		var key = option && option.value ? option.value : "";
+		var table = window.MILE_REFERENCES;
+		var value;
+		if (key && table && Object.prototype.hasOwnProperty.call(table, key)) {
+			value = Number(table[key]);
+			if (Number.isFinite(value)) return value;
+		}
+		return option ? Number(option.dataset.reference) : NaN;
+	}
+
 	function formatEuro(value) {
 		if (!Number.isFinite(value)) return "—";
 		return `€ ${formatNumber(value, 2)}`;
@@ -451,9 +462,7 @@
 	function calculateAward(calculator) {
 		var programField = calculator.querySelector('[name="program"]');
 		var programOption = programField?.selectedOptions?.[0];
-		var officialReference = programOption
-			? Number(programOption.dataset.reference)
-			: NaN;
+		var officialReference = officialMileReference(programOption);
 		var programValue =
 			programOption && programOption.value ? programOption.value : "";
 		var programName =
@@ -648,7 +657,7 @@
 				? programField.selectedOptions[0]
 				: null;
 		var programValue = option && option.value ? option.value : "";
-		var officialReference = option ? Number(option.dataset.reference) : NaN;
+		var officialReference = officialMileReference(option);
 		var officialRatio = option ? Number(option.dataset.ratio) : NaN;
 		var cpmField = calculator.querySelector('[name="cpm"]');
 		var ratioField = calculator.querySelector('[name="ratio"]');
@@ -731,36 +740,124 @@
 			var cost = mileCost;
 			var nominal =
 				Number.isFinite(credit) && fx != null && fx >= 0 ? credit * fx : NaN;
-			var gap =
-				Number.isFinite(nominal) && Number.isFinite(cost)
-					? nominal - cost
-					: NaN;
-			var gapPct =
-				Number.isFinite(gap) && nominal > 0 ? (gap / nominal) * 100 : NaN;
 
 			return {
 				received: received,
 				credit: credit,
 				cost: cost,
 				nominal: nominal,
-				gap: gap,
-				gapPct: gapPct,
 			};
 		}
 
 		result = scenario(promoBonus);
+		var mileReal =
+			euroBlock > 0 && fx != null && fx >= 0 ? euroBlock * fx : NaN;
+		var bonusRate = 1 + promoBonus / 100;
+		var mileNow =
+			ratio > 0 && cpm != null && cpm >= 0 && bonusRate > 0
+				? ((ratio / 1000) * cpm) / bonusRate
+				: NaN;
+		var mileNowEuro =
+			Number.isFinite(mileNow) && fx != null && fx > 0 ? mileNow / fx : NaN;
 		setOutput(calculator, "received", formatPoints(result.received));
-		setOutput(calculator, "credit", formatEuro(result.credit));
-		setOutput(calculator, "cost", formatMoney(result.cost));
-		setOutput(calculator, "nominal", formatMoney(result.nominal));
-		setOutput(calculator, "gap", formatMoney(result.gap));
 		setOutput(
 			calculator,
-			"gap-pct",
-			Number.isFinite(result.gapPct) ? `${formatNumber(result.gapPct, 2)}%` : "—",
+			"credit",
+			Number.isFinite(result.nominal)
+				? `${formatEuro(result.credit)} ~ ${formatMoney(result.nominal)}`
+				: formatEuro(result.credit),
 		);
-		setNegative(calculator, "gap", result.gap < 0);
-		setNegative(calculator, "gap-pct", result.gapPct < 0);
+		setOutput(
+			calculator,
+			"cost",
+			miles > 0 ? `${formatPoints(miles)} pontos` : "—",
+		);
+		setOutput(calculator, "cost-points", formatMoney(result.cost));
+		setOutput(calculator, "mile-euro", formatEuro(euroBlock > 0 ? euroBlock : NaN));
+		setOutput(calculator, "mile-real", formatMoney(mileReal));
+		var discount =
+			Number.isFinite(mileReal) && mileReal > 0 && Number.isFinite(mileNow)
+				? ((mileReal - mileNow) / mileReal) * 100
+				: NaN;
+		setOutput(calculator, "mile-now", formatEuro(mileNowEuro));
+		setOutput(calculator, "mile-now-euro", formatMoney(mileNow));
+		setOutput(
+			calculator,
+			"discount",
+			Number.isFinite(discount) ? `${formatNumber(discount, 2)}%` : "—",
+		);
+		setNegative(calculator, "discount", discount < 0);
+	}
+
+	function calculateAccorStay(calculator) {
+		var hotel = filledNumber(calculator, "stay");
+		var rewards = filledNumber(calculator, "rewards");
+		var official = filledNumber(calculator, "reward-cpm");
+		var fx = filledNumber(calculator, "fx");
+		var mine = filledNumber(calculator, "reward-cpm-mine");
+		var credit;
+		var discounted;
+		var pointCost;
+		var hotelDue;
+		var totalPaid;
+		var discountMoney;
+		var discountPct;
+
+		if (!(official > 0)) official = official == null ? 20 : official;
+		credit =
+			rewards != null &&
+			rewards >= 0 &&
+			official > 0 &&
+			fx != null &&
+			fx >= 0
+				? (rewards / 1000) * official * fx
+				: NaN;
+		discounted =
+			hotel != null && hotel >= 0 && Number.isFinite(credit)
+				? hotel - credit
+				: NaN;
+		pointCost =
+			rewards > 0 && mine != null && mine >= 0 && fx != null && fx >= 0
+				? (rewards / 1000) * mine * fx
+				: NaN;
+		hotelDue = Number.isFinite(discounted) && discounted > 0 ? discounted : 0;
+		totalPaid =
+			Number.isFinite(discounted) && Number.isFinite(pointCost)
+				? hotelDue + pointCost
+				: NaN;
+		discountMoney =
+			hotel != null && hotel >= 0 && Number.isFinite(totalPaid)
+				? hotel - totalPaid
+				: NaN;
+		discountPct =
+			hotel > 0 && Number.isFinite(discountMoney)
+				? (discountMoney / hotel) * 100
+				: NaN;
+
+		setOutput(
+			calculator,
+			"stay-discount-note",
+			Number.isFinite(credit)
+				? `- ${formatMoney(credit)} (desconto usando pontos)`
+				: "- R$ 0,00 (desconto usando pontos)",
+		);
+		setOutput(calculator, "stay-discounted", formatMoney(discounted));
+		setOutput(
+			calculator,
+			"stay-cost-note",
+			Number.isFinite(pointCost)
+				? `+ ${formatMoney(pointCost)} (custos dos pontos Reward)`
+				: "+ R$ 0,00 (custos dos pontos Reward)",
+		);
+		setOutput(calculator, "stay-cost", formatMoney(totalPaid));
+		setOutput(
+			calculator,
+			"discount-pct",
+			Number.isFinite(discountPct) ? `${formatNumber(discountPct, 2)}%` : "—",
+		);
+		setOutput(calculator, "discount-money", formatMoney(discountMoney));
+		setNegative(calculator, "stay-discounted", discounted < 0);
+		setNegative(calculator, "discount-pct", discountPct < 0);
 	}
 
 	function ptaxUrl(currency, date) {
@@ -849,7 +946,7 @@
 		});
 	}
 
-	function addMoneyPrefix(input) {
+	function addSymbolPrefix(input, symbol, extraClass) {
 		var parent = input.parentElement;
 		var wrap = parent;
 		var mark = document.createElement("span");
@@ -862,15 +959,24 @@
 		} else {
 			parent.classList.add("money-input");
 		}
+		if (extraClass) wrap.classList.add(extraClass);
 		mark.className = "money-prefix";
 		mark.setAttribute("aria-hidden", "true");
-		mark.textContent = "R$";
+		mark.textContent = symbol;
 		wrap.insertBefore(mark, input);
+	}
+
+	function addMoneyPrefix(input) {
+		if (input.dataset.prefix === "euro") return;
+		addSymbolPrefix(input, "R$");
 	}
 
 	document
 		.querySelectorAll('input[data-mask="money"]')
 		.forEach(addMoneyPrefix);
+	document
+		.querySelectorAll('input[name="euro-block"], input[data-prefix="euro"]')
+		.forEach((input) => addSymbolPrefix(input, "€", "euro-input"));
 
 	var calculators = document.querySelectorAll("[data-calculator]");
 	calculators.forEach((calculator) => {
@@ -882,11 +988,13 @@
 					? calculateTransfer
 					: type === "award"
 						? calculateAward
-						: 			type === "accor"
-				? calculateAccor
-				: type === "credit-card"
-					? calculateCreditCard
-					: calculateEmission;
+						: type === "accor"
+							? calculateAccor
+							: type === "accor-stay"
+								? calculateAccorStay
+								: type === "credit-card"
+									? calculateCreditCard
+									: calculateEmission;
 
 		function onEdit(event) {
 			var field = event.target;
@@ -919,4 +1027,5 @@
 		calculate(calculator);
 	});
 	bindFxLookup();
+	if (window.applyMileReferences) window.applyMileReferences();
 })();
