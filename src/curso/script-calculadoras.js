@@ -235,6 +235,7 @@
 	var cardPresets = {
 		"nubank-ultravioleta": { cashback: "1,25", points: "2,2" },
 		"nubank-croma": { cashback: "0,8", points: "1,4" },
+		"santander-unique": { cashback: "1,20", points: "2,2" },
 	};
 
 	function applyCardPreset(calculator) {
